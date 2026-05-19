@@ -7,7 +7,7 @@ export default function BalanceSection() {
       <PageContainer>
         <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-5">
           <div className="flex flex-col items-start gap-8">
-            <div className="inline-flex rounded-full border border-[#333333] bg-[#141414] p-1">
+            <div id="roundnessSelector" className="inline-flex rounded-full border border-[#333333] bg-[#141414] p-1">
               <span className="flex items-center justify-center rounded-full px-5 py-2">
                 <Image
                   src="/home/angle-low.svg"
