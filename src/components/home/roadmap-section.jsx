@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PageContainer from "@/components/ui/page-container";
 
 const roadmapCards = [
@@ -20,51 +21,125 @@ const roadmapCards = [
   {
     title: "Готовый дизайн-результат",
     points: [
-      "Продуманный UX/UI дизайн сайта или сервиса",
-      "Консистентные экраны для передачи в разработку",
-      "Решения, которые масштабируются под рост бизнеса",
+      "Продуманный UX / UI дизайн сайта или сервиса",
+      "Консистентные экраны, готовые к передаче в разработку",
+      "Дизайн, который легко дорабатывается и масштабируется под задачи бизнеса",
     ],
   },
+];
+
+const timelineDays = [
+  { currentLabel: "Сегодня" },
+  { currentLabel: "День 3" },
+  { currentLabel: "День 10", crossedLabel: "День 30" },
 ];
 
 export default function RoadmapSection() {
   return (
     <section className="bg-[#0a0a0a] py-12 sm:py-16">
       <PageContainer>
-        <h2 className="mx-auto max-w-3xl text-center text-3xl font-semibold leading-tight text-white sm:text-4xl">
+        <h2 className="mx-auto max-w-[860px] text-center text-[34px] font-semibold leading-[1.2] tracking-[-1.2px] text-[#fdfdfd] sm:text-[40px] sm:leading-[48px] sm:tracking-[-1.33px]">
           Современный дизайн не должен
           <br />
           разрабатываться месяцами
         </h2>
 
-        <p className="mt-4 text-center text-sm text-zinc-400 sm:text-base">
-          Реализуем путь «от старта до результата» за один цикл.
-        </p>
-
-        <div className="mt-8 grid gap-2 rounded-full border border-white/10 bg-zinc-900 p-1 sm:grid-cols-3">
-          <div className="rounded-full bg-zinc-700 px-4 py-2 text-center text-sm text-white">
-            Старт
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-center text-[16px] leading-[24px] tracking-[-0.33px] text-[#fdfdfd] sm:flex-nowrap sm:text-[18px] sm:leading-[28px]">
+          <p>Используем</p>
+          <div className="inline-flex items-center gap-1 rounded-xl border border-[#4e4e4e] bg-[#1f1f1f] py-1 pl-1 pr-2">
+            <span className="relative size-7 shrink-0">
+              <Image
+                src="/home/road-bolt.svg"
+                alt=""
+                fill
+                className="object-contain"
+                aria-hidden
+              />
+            </span>
+            <span>нейросети</span>
           </div>
-          <div className="rounded-full px-4 py-2 text-center text-sm text-zinc-400">День 3</div>
-          <div className="rounded-full px-4 py-2 text-center text-sm text-zinc-400">День 30</div>
+          <p>для ускоренной реализации вашего проекта</p>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {roadmapCards.map((card) => (
-            <article
-              key={card.title}
-              className="rounded-3xl border border-white/10 bg-zinc-900 p-5 sm:p-6"
-            >
-              <h3 className="text-xl font-semibold text-white">{card.title}</h3>
-              <ul className="mt-4 space-y-2">
-                {card.points.map((point) => (
-                  <li key={point} className="text-sm leading-6 text-zinc-400">
-                    — {point}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+        <div className="mt-8 flex flex-col gap-6">
+          <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+            <div className="flex min-w-[760px] items-end">
+              {timelineDays.map((day, index) => {
+                const isFirst = index === 0;
+                const isLast = index === timelineDays.length - 1;
+
+                return (
+                  <div key={day.currentLabel} className="flex flex-1 items-end gap-0">
+                    <div className="flex flex-1 flex-col items-center gap-3">
+                      <div className="rounded-xl bg-[#292929] px-4 py-2 text-[16px] font-medium leading-6 tracking-[-0.66px] text-[#fdfdfd]">
+                        <span className="relative inline-block">
+                          {day.currentLabel}
+                          {day.crossedLabel ? (
+                            <>
+                              <span className="ml-2 text-[#7a7a7a]">{day.crossedLabel}</span>
+                              <span className="pointer-events-none absolute -right-2 top-[calc(50%+4px)] h-4 w-[72px] -translate-y-1/2">
+                                <Image
+                                  src="/home/road-strike.svg"
+                                  alt=""
+                                  fill
+                                  className="object-contain"
+                                  aria-hidden
+                                />
+                              </span>
+                            </>
+                          ) : null}
+                        </span>
+                      </div>
+                      <div className="flex w-full items-center">
+                        <div className={`h-px flex-1 border-t border-[#4e4e4e] ${isFirst ? "opacity-0" : ""}`} />
+                        <span className="relative size-[23px] shrink-0">
+                          <Image
+                            src="/home/road-dot.svg"
+                            alt=""
+                            fill
+                            className="object-contain"
+                            aria-hidden
+                          />
+                        </span>
+                        <div className={`h-px flex-1 border-t border-[#4e4e4e] ${isLast ? "opacity-0" : ""}`} />
+                      </div>
+                    </div>
+                    {!isLast ? (
+                      <div className="pb-[11px]">
+                        <span className="relative block h-px w-5">
+                          <Image
+                            src="/home/road-line.svg"
+                            alt=""
+                            fill
+                            className="object-contain"
+                            aria-hidden
+                          />
+                        </span>
+                      </div>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {roadmapCards.map((card) => (
+              <article
+                key={card.title}
+                className="h-full rounded-[20px] border border-[#333333] bg-[#141414] p-5"
+              >
+                <h3 className="text-[24px] font-semibold leading-8 tracking-[-1.33px] text-[#fdfdfd]">
+                  {card.title}
+                </h3>
+                <ul className="mt-3 space-y-1 text-[16px] leading-6 tracking-[-0.33px] text-[#a5a5a5]">
+                  {card.points.map((point) => (
+                    <li key={point}>— {point}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
         </div>
       </PageContainer>
     </section>
