@@ -1,17 +1,24 @@
 import PageContainer from "@/components/ui/page-container";
+import Image from "next/image";
+import HeroBg from "@pub/bg-hero.jpg"
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden border-b border-white/10">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-10%,rgba(194,15,54,0.28),transparent_58%)]" />
-      <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(135deg,rgba(194,15,54,0.35)_12.5%,transparent_12.5%,transparent_50%,rgba(194,15,54,0.35)_50%,rgba(194,15,54,0.35)_62.5%,transparent_62.5%,transparent_100%)] [background-size:36px_36px]" />
+    <section className="relative overflow-visible">
+      <Image
+        className="absolute bottom-0 left-0 right-0 mx-auto w-[1440px] h-[480px]"
+        src={HeroBg}
+        width={"1440px"}
+        height={"480px"}
+      />
+      
 
       <PageContainer className="relative py-12 sm:py-14 lg:py-10">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-end">
           <div className="hidden h-[312px] lg:block" />
 
           <div className="flex flex-col items-start gap-9">
-            <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[64px]">
+            <h1 className="text-4xl font-medium leading-[1.08] tracking-[-0.04em] text-white sm:text-5xl lg:text-[64px] lg:leading-[76px]">
               Укрепляем бизнес
               <br />
               через проверенные
