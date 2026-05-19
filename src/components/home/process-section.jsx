@@ -37,7 +37,7 @@ const steps = [
   },
 ];
 
-const SCROLL_PROBE_RATIO = 0.62;
+const SCROLL_PROBE_RATIO = 0.33;
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
@@ -161,8 +161,8 @@ export default function ProcessSection() {
   return (
     <section id="services" className="bg-black py-12 sm:py-16">
       <PageContainer>
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-5">
-          <div className="space-y-6">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-5 relative">
+          <div className="space-y-6 sticky top-36 h-fit">
             <h2 className="text-[34px] font-semibold leading-[1.2] tracking-[-1.2px] text-[#fdfdfd] sm:text-[40px] sm:leading-[48px] sm:tracking-[-1.33px]">
               Как мы работаем
             </h2>
