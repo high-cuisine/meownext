@@ -37,7 +37,7 @@ html[data-roundness="small"] {
 }
 
 html[data-roundness="medium"] {
-  --site-roundness: 12px;
+  --site-roundness: 16px;
 }
 
 html[data-roundness="large"] {
