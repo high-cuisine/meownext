@@ -48,11 +48,40 @@ export default function ProcessSection() {
   const firstIconRef = useRef(null);
   const lastIconRef = useRef(null);
   const frameRef = useRef(0);
-  const [timeline, setTimeline] = useState({ top: 0, left: 0, height: 0 });
+  const smoothFrameRef = useRef(0);
+  const targetProgressRef = useRef(0);
+  const visualProgressRef = useRef(0);
+  const [timeline, setTimeline] = useState({ top: 0, height: 0 });
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let resizeObserver = null;
+
+    const animateProgress = () => {
+      if (smoothFrameRef.current) {
+        return;
+      }
+
+      const step = () => {
+        const current = visualProgressRef.current;
+        const target = targetProgressRef.current;
+        const delta = target - current;
+
+        if (Math.abs(delta) < 0.001) {
+          visualProgressRef.current = target;
+          setProgress(target);
+          smoothFrameRef.current = 0;
+          return;
+        }
+
+        const next = current + delta * .025;
+        visualProgressRef.current = next;
+        setProgress(next);
+        smoothFrameRef.current = window.requestAnimationFrame(step);
+      };
+
+      smoothFrameRef.current = window.requestAnimationFrame(step);
+    };
 
     const updateTimeline = () => {
       frameRef.current = 0;
@@ -67,22 +96,18 @@ export default function ProcessSection() {
 
       const nextTop = firstIcon.offsetTop + firstIcon.offsetHeight;
       const nextHeight = Math.max(0, lastIcon.offsetTop - nextTop);
-      const nextLeft = firstIcon.offsetLeft + firstIcon.offsetWidth / 2 - 1;
 
       setTimeline((prev) => {
-        if (
-          prev.top === nextTop &&
-          prev.left === nextLeft &&
-          prev.height === nextHeight
-        ) {
+        if (prev.top === nextTop && prev.height === nextHeight) {
           return prev;
         }
 
-        return { top: nextTop, left: nextLeft, height: nextHeight };
+        return { top: nextTop, height: nextHeight };
       });
 
       if (nextHeight <= 0) {
-        setProgress(0);
+        targetProgressRef.current = 0;
+        animateProgress();
         return;
       }
 
@@ -91,14 +116,8 @@ export default function ProcessSection() {
       const endY = startY + nextHeight;
       const probeY = window.scrollY + window.innerHeight * SCROLL_PROBE_RATIO;
       const nextProgress = clamp((probeY - startY) / (endY - startY), 0, 1);
-
-      setProgress((prev) => {
-        if (Math.abs(prev - nextProgress) < 0.001) {
-          return prev;
-        }
-
-        return nextProgress;
-      });
+      targetProgressRef.current = nextProgress;
+      animateProgress();
     };
 
     const requestFrame = () => {
@@ -128,6 +147,9 @@ export default function ProcessSection() {
       if (frameRef.current) {
         window.cancelAnimationFrame(frameRef.current);
       }
+      if (smoothFrameRef.current) {
+        window.cancelAnimationFrame(smoothFrameRef.current);
+      }
 
       window.removeEventListener("scroll", requestFrame);
       window.removeEventListener("resize", requestFrame);
@@ -150,18 +172,18 @@ export default function ProcessSection() {
             </p>
           </div>
 
-          <div ref={timelineWrapRef} className="relative pl-8 md:pl-12">
+          <div ref={timelineWrapRef} className="relative md:pl-0">
             <div
               aria-hidden
               className="pointer-events-none absolute z-0 w-[2px] bg-[#292929]"
               style={{
                 top: `${timeline.top}px`,
-                left: `${timeline.left}px`,
+                left: "23px",
                 height: `${timeline.height}px`,
               }}
             >
               <div
-                className="w-full rounded-full bg-gradient-to-b from-[#66081c] to-[#c20f36] transition-[height] duration-150"
+                className="w-full rounded-full bg-gradient-to-b from-[#66081c] to-[#c20f36]"
                 style={{ height: `${progress * 100}%` }}
               />
             </div>
@@ -184,12 +206,12 @@ export default function ProcessSection() {
                         }
                         className="flex h-10 w-12 items-center justify-center rounded-xl bg-[#a30d2d]"
                       >
-                        <Image
+                        <img
                           src={step.icon}
                           alt={step.iconAlt}
-                          width={24}
-                          height={24}
-                          className="size-6"
+                          
+                          className="max-h-6 max-w-6 w-auto m-auto top-0 bottom-0 left-0 right-0"
+                          style={{ width: "auto", height: "auto" }}
                           loading="lazy"
                         />
                       </span>
