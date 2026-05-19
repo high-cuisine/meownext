@@ -32,9 +32,13 @@ export default function CasesSection() {
                 )
               }
               key={item.id}
-              className={`cursor-pointer relative aspect-square overflow-hidden rounded-[28px] flex items-end`}
+              className={`bg-[#000] cursor-pointer relative aspect-square overflow-hidden rounded-[28px] flex items-end`}
             >
-              <Image src={item.image} className="pointer-events-none absolute" />
+              <Image src={item.image} className="pointer-events-none absolute scale-105 blur-md" />
+              <Image src={item.image} className="pointer-events-none absolute scale-105 blur-sm" />
+              
+              
+              <Image src={item.image} className="pointer-events-none absolute w-full h-full" />
 
               <div style={{background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.64) 100%)"}} className={`grid grid-cols-2 items-end z-10 p-[24px] transition-all ease-in-out duration-350 w-full ${hovered.includes(item.id) ? "opacity-100 " : "opacity-0 translate-y-7"}`}>
                 <p
