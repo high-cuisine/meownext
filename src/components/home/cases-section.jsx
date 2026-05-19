@@ -36,9 +36,9 @@ export default function CasesSection() {
             >
               <Image src={item.image} className="pointer-events-none absolute" />
 
-              <div className={`grid grid-cols-2 items-end z-10 p-[24px] transition-all w-full ${hovered.includes(item.id) ? "opacity-100 " : "opacity-0 translate-y-7"}`}>
+              <div style={{background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.64) 100%)"}} className={`grid grid-cols-2 items-end z-10 p-[24px] transition-all ease-in-out duration-350 w-full ${hovered.includes(item.id) ? "opacity-100 " : "opacity-0 translate-y-7"}`}>
                 <p
-                  className={`text-[32px] line-clamp-1 leading-8 font-medium text-white`}
+                  className={`text-[32px] line-clamp-1 leading-9 font-medium text-white`}
                 >
                   {item.title}
                 </p>
@@ -52,6 +52,7 @@ export default function CasesSection() {
           ))}
         </div>
       </PageContainer>
+
     </section >
   );
 }

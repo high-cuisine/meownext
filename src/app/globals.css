@@ -3,7 +3,7 @@
 :root {
   --background: #000000;
   --foreground: #fdfdfd;
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-onest);
 }
 
 body {
