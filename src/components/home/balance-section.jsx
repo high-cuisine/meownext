@@ -1,45 +1,73 @@
+﻿import Image from "next/image";
 import PageContainer from "@/components/ui/page-container";
 
 export default function BalanceSection() {
   return (
-    <section className="bg-[#0a0a0a] py-10 sm:py-14">
+    <section className="bg-[#0a0a0a] py-10 sm:py-16">
       <PageContainer>
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <div className="flex flex-col items-start gap-6">
-            <div className="inline-flex rounded-full border border-white/15 bg-zinc-900 p-1">
-              <span className="rounded-full px-5 py-2 text-sm text-zinc-500">UX</span>
-              <span className="rounded-full bg-zinc-700 px-5 py-2 text-sm text-white">UI</span>
-              <span className="rounded-full px-5 py-2 text-sm text-zinc-500">Бизнес</span>
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-5">
+          <div className="flex flex-col items-start gap-8">
+            <div className="inline-flex rounded-full border border-[#333333] bg-[#141414] p-1">
+              <span className="flex items-center justify-center rounded-full px-5 py-2">
+                <Image
+                  src="/home/angle-low.svg"
+                  alt=""
+                  aria-hidden
+                  width={24}
+                  height={24}
+                  className="size-6"
+                  loading="lazy"
+                />
+              </span>
+              <span className="flex items-center justify-center rounded-full bg-[#333333] px-5 py-2">
+                <Image
+                  src="/home/angle-mid.svg"
+                  alt=""
+                  aria-hidden
+                  width={24}
+                  height={24}
+                  className="size-6"
+                  loading="lazy"
+                />
+              </span>
+              <span className="flex items-center justify-center rounded-full px-5 py-2">
+                <Image
+                  src="/home/angle-high.svg"
+                  alt=""
+                  aria-hidden
+                  width={24}
+                  height={24}
+                  className="size-6"
+                  loading="lazy"
+                />
+              </span>
             </div>
 
-            <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl">
+            <h2 className="max-w-[690px] text-[34px] font-medium leading-[1.2] tracking-[-1.2px] text-white sm:text-[40px] sm:leading-[48px] sm:tracking-[-1.33px]">
               Идеальный баланс между UX, UI и бизнес-результатом для цифровых продуктов
             </h2>
 
-            <p className="max-w-xl text-base text-zinc-400">
-              Смотрим не только на эстетику, но и на то, как дизайн влияет на метрики:
-              конверсию, удержание и скорость принятия решения клиентом.
+            <p className="max-w-[660px] text-[16px] leading-7 tracking-[-0.33px] text-[#fdfdfd] sm:text-[18px]">
+              Проектируем интерфейсы, в которых пользовательский опыт, визуальная система и цели бизнеса
+              выстроены в единую, работающую модель
             </p>
 
             <button
               type="button"
-              className="rounded-xl bg-[#c20f36] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#ab0d30] sm:text-base"
+              className="rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6 tracking-[-0.66px] text-white transition-colors hover:bg-[#ab0d30]"
             >
-              О нас
+              Наши услуги
             </button>
           </div>
 
-          <div className="relative min-h-[300px] overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-zinc-800 to-zinc-950">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,rgba(255,255,255,0.16),transparent_55%)]" />
-            <div className="absolute left-1/2 top-1/2 w-[210px] -translate-x-1/2 -translate-y-1/2 rotate-[-18deg] rounded-2xl border border-white/15 bg-black/40 px-5 py-7 text-center text-zinc-300 shadow-2xl">
-              UX
-            </div>
-            <div className="absolute left-1/2 top-1/2 w-[210px] -translate-x-1/2 -translate-y-1/2 rotate-[-3deg] rounded-2xl border border-white/15 bg-black/55 px-5 py-7 text-center text-zinc-100 shadow-2xl">
-              UI
-            </div>
-            <div className="absolute left-1/2 top-1/2 w-[210px] -translate-x-1/2 -translate-y-1/2 rotate-[14deg] rounded-2xl border border-white/15 bg-black/40 px-5 py-7 text-center text-zinc-300 shadow-2xl">
-              Бизнес
-            </div>
+          <div className="relative aspect-[646/400] w-full overflow-hidden rounded-[32px] border border-[#333333] bg-[#141414]">
+            <Image
+              src="/home/balance-image.png"
+              alt="Иллюстрация баланса UX, UI и бизнес-целей"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
           </div>
         </div>
       </PageContainer>
