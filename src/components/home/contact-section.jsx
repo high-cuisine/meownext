@@ -62,16 +62,16 @@ function getFieldClasses(hasError) {
   return "border-[#333333] bg-[#141414] hover:border-[#4e4e4e] hover:bg-[#1f1f1f] focus:border-[#4e4e4e]";
 }
 
-function getTopicButtonClasses(isSelected, isDisabled) {
-  if (isDisabled) {
-    return "border border-transparent bg-[#1f1f1f] text-[#7a7a7a]";
-  }
-
+function getTopicButtonClasses(isSelected, isDimmed) {
   if (isSelected) {
-    return "border border-[#ff1447] bg-[#333333] text-[#fdfdfd]";
+    return "border-[#ff1447] bg-[#333333] text-[#fdfdfd] ring-[#ff1447]";
   }
 
-  return "border border-transparent bg-[#333333] text-[#fdfdfd] hover:bg-[#4e4e4e]";
+  if (isDimmed) {
+    return "border-transparent bg-[#1f1f1f] text-[#7a7a7a] ring-transparent";
+  }
+
+  return "border-transparent bg-[#333333] text-[#fdfdfd] ring-transparent hover:border-[#4e4e4e] hover:bg-[#4e4e4e] hover:ring-[#4e4e4e]";
 }
 
 function validateForm(formData, selectedChannel) {
@@ -211,7 +211,7 @@ export default function ContactSection() {
                   <div className="flex flex-nowrap justify-between" role="radiogroup" aria-label="Что вас интересует">
                     {topics.map((topic) => {
                       const isSelected = formData.interests.includes(topic);
-                      const isDisabled = formData.interests.length > 0 && !isSelected;
+                      const isDimmed = formData.interests.length > 0 && !isSelected;
 
                       return (
                         <button
@@ -220,10 +220,13 @@ export default function ContactSection() {
                           onClick={() => toggleInterest(topic)}
                           role="radio"
                           aria-checked={isSelected}
-                          className={`transition-all duration-700 rounded-xl px-4 py-3 text-base font-medium leading-6 tracking-[-0.66px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff1447] ${getTopicButtonClasses(
+                          className={`rounded-xl border ring-1 ring-inset px-4 py-3 text-base font-medium leading-6 tracking-[-0.66px] transition-all duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff1447] ${getTopicButtonClasses(
                             isSelected,
-                            isDisabled,
+                            isDimmed,
                           )}`}
+                          style={{
+                            transitionProperty: "background-color, border-color, color, box-shadow",
+                          }}
                         >
                           {topic}
                         </button>
