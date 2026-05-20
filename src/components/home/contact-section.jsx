@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import PageContainer from "@/components/ui/page-container";
+import FormBG from "@pub/home/form-bg.jpg"
 
 const topics = [
   "Дизайн с нуля",
@@ -161,14 +162,20 @@ export default function ContactSection() {
 
   return (
     <section className="relative overflow-hidden bg-black py-12 sm:py-16">
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute bottom-[24%] left-1/2 w-[1740px] -translate-x-1/2">
-          <Image src="/home/contact-ellipse-bottom.svg" alt="" width={2240} height={2446} className="h-auto w-full max-w-none" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+        <div className="absolute z-0 bottom-0 left-1/2 scale-120 blur-xl bg-[#A30D2D] w-[1740px] -translate-x-1/2">
+          <Image src="/home/form-bg-aurora.jpg" alt="" width={2240} height={2446} className="h-auto w-full max-w-none" />
         </div>
-        <div className="absolute left-1/2 top-[-240%] w-[2584px] -translate-x-1/2">
-          <Image src="/home/contact-ellipse-top.svg" alt="" width={3584} height={3587} className="h-auto w-full max-w-none" />
+        <div className="absolute z-0 bottom-0 left-1/2 scale-106 blur-sm w-[1740px] -translate-x-1/2">
+          <Image src="/home/form-bg-aurora.jpg" alt="" width={2240} height={2446} className="h-auto w-full max-w-none" />
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-[188px] opacity-35 [background-image:linear-gradient(135deg,rgba(194,15,54,0.6)_12.5%,transparent_12.5%,transparent_50%,rgba(194,15,54,0.6)_50%,rgba(194,15,54,0.6)_62.5%,transparent_62.5%,transparent_100%)] [background-size:36px_36px]" />
+        <div className="absolute z-0 bottom-0 left-1/2 scale-102 blur-xs w-[1740px] -translate-x-1/2">
+          <Image src="/home/form-bg-aurora.jpg" alt="" width={2240} height={2446} className="h-auto w-full max-w-none" />
+        </div>
+        <div className="absolute z-20 bottom-0 left-1/2 w-[1740px] -translate-x-1/2">
+          <Image src={FormBG} alt="" width={2240} height={2446} className="h-auto w-full max-w-none" />
+        </div>
+
       </div>
 
       <PageContainer className="relative">
@@ -277,9 +284,8 @@ export default function ContactSection() {
                           key={channel.key}
                           type="button"
                           onClick={() => handleFieldChange("channel", channel.key)}
-                          className={`flex min-w-0 items-center justify-center rounded-[28px] px-5 py-2 transition-colors ${
-                            isActive ? "bg-[#333333]" : "bg-transparent hover:bg-[#1f1f1f]"
-                          }`}
+                          className={`flex min-w-0 items-center justify-center rounded-[28px] px-5 py-2 transition-colors ${isActive ? "bg-[#333333]" : "bg-transparent hover:bg-[#1f1f1f]"
+                            }`}
                           aria-label={channel.title}
                           title={channel.title}
                         >
@@ -309,9 +315,8 @@ export default function ContactSection() {
                   />
                   <span
                     id="contact-helper"
-                    className={`px-1 text-xs leading-4 tracking-[-0.33px] ${
-                      shouldShowError("contact") && errors.contact ? "text-[#ff1447]" : "text-[#a5a5a5]"
-                    }`}
+                    className={`px-1 text-xs leading-4 tracking-[-0.33px] ${shouldShowError("contact") && errors.contact ? "text-[#ff1447]" : "text-[#a5a5a5]"
+                      }`}
                   >
                     {shouldShowError("contact") && errors.contact ? errors.contact : selectedChannel.helper}
                   </span>
@@ -330,9 +335,8 @@ export default function ContactSection() {
                   className="peer sr-only"
                 />
                 <span
-                  className={`mt-px flex size-6 shrink-0 items-center justify-center rounded-lg border border-[#333333] p-0.5 transition-colors ${
-                    formData.policy ? "bg-[#0a0a0a]" : "bg-[#0a0a0a] peer-hover:bg-[#1f1f1f]"
-                  }`}
+                  className={`mt-px flex size-6 shrink-0 items-center justify-center rounded-lg border border-[#333333] p-0.5 transition-colors ${formData.policy ? "bg-[#0a0a0a]" : "bg-[#0a0a0a] peer-hover:bg-[#1f1f1f]"
+                    }`}
                 >
                   {formData.policy ? (
                     <Image src="/home/contact-check.svg" alt="" aria-hidden width={15} height={11} className="size-3" />
@@ -352,11 +356,10 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={!isFormValid}
-                className={`rounded-xl px-5 py-3 text-base font-medium leading-6 tracking-[-0.66px] transition-colors ${
-                  isFormValid
-                    ? "bg-[#c20f36] text-[#fdfdfd] hover:bg-[#ab0d30]"
-                    : "cursor-not-allowed bg-[#292929] text-[#7a7a7a]"
-                }`}
+                className={`rounded-xl px-5 py-3 text-base font-medium leading-6 tracking-[-0.66px] transition-colors ${isFormValid
+                  ? "bg-[#c20f36] text-[#fdfdfd] hover:bg-[#ab0d30]"
+                  : "cursor-not-allowed bg-[#292929] text-[#7a7a7a]"
+                  }`}
               >
                 Отправить заявку
               </button>
