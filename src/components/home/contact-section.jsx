@@ -173,7 +173,7 @@ export default function ContactSection() {
           <Image src="/home/form-bg-aurora.jpg" alt="" width={2240} height={2446} className="h-auto w-full max-w-none" />
         </div>
         <div className="absolute z-20 bottom-0 left-1/2 w-[1740px] -translate-x-1/2">
-          <Image src={FormBG} alt="" width={2240} height={2446} className="h-auto w-full max-w-none" />
+          <Image quality={100} src={FormBG} alt="" width={1440} height={586} className="h-auto w-full max-w-none" />
         </div>
 
       </div>
