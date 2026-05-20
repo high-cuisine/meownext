@@ -220,7 +220,7 @@ export default function ContactSection() {
                           onClick={() => toggleInterest(topic)}
                           role="radio"
                           aria-checked={isSelected}
-                          className={`rounded-xl px-4 py-3 text-base font-medium leading-6 tracking-[-0.66px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff1447] ${getTopicButtonClasses(
+                          className={`transition-all duration-700 rounded-xl px-4 py-3 text-base font-medium leading-6 tracking-[-0.66px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff1447] ${getTopicButtonClasses(
                             isSelected,
                             isDisabled,
                           )}`}
