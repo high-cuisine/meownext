@@ -52,11 +52,28 @@ export default function SiteHeader() {
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-40">
-      <PageContainer className={`flex h-[88px] items-center justify-between gap-5 py-2 transition-all duration-1000 backdrop-blur-[0px] bg-black/00 ${isScrolled ? "backdrop-blur-[12px] bg-black" : " "}`}>
-        <Link href="/" className="inline-flex items-center text-white">
-          <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
-        </Link>
+    <header
+      className={`sticky top-0 z-40 border-b transition-colors duration-500 ${isScrolled ? "border-[#333333]" : "border-transparent"}`}
+    >
+      <PageContainer className={`flex xl:grid grid-cols-2 h-[88px] items-center justify-between gap-5 py-2 transition-all duration-1000 backdrop-blur-[0px] bg-black/00 ${isScrolled ? "backdrop-blur-[12px] bg-black" : " "}`}>
+        <div className="flex items-center gap-[24px]">
+          <Link href="/" className="inline-flex items-center text-white">
+            <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
+          </Link>
+          <a
+            href="#cooperation"
+            style={{transition: " 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)", transformOrigin:" top center"}}
+            className={`hidden md:block rounded-xl bg-[#333333] px-5 py-3 scale-0 opacity-0  
+              text-base font-medium leading-6 text-[#fdfdfd]  transition-all duration-500
+              ${isScrolled ? "translate-y-0 opacity-100 pointer-events-auto scale-100" : "pointer-events-none" }`}
+            tabIndex={isScrolled ? 0 : -1}
+            aria-hidden={!isScrolled}
+          >
+            Обсудить проект
+          </a>
+        </div>
+
+
 
         <button
           type="button"
@@ -74,17 +91,21 @@ export default function SiteHeader() {
           />
         </button>
 
-        <nav className="hidden items-center gap-6 md:flex md:gap-8">
-          {desktopMenu.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-base font-medium leading-6  text-[#a5a5a5] transition-colors hover:text-white"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        <div className="hidden items-center gap-6 md:flex md:gap-8">
+          <nav className="flex items-center gap-6 md:gap-8">
+            {desktopMenu.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-base font-medium leading-6  text-[#a5a5a5] transition-colors hover:text-white"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+
+        </div>
       </PageContainer>
 
       {isMobileMenuOpen ? (

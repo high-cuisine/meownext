@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Onest } from "next/font/google";
 import Script from "next/script";
 import SiteFooter from "@/components/layout/site-footer";
@@ -53,6 +53,10 @@ html [class*="rounded-"]:not([class*="rounded-full"]):not([class*="rounded-none"
 export const metadata: Metadata = {
   title: "Meowdes",
   description: "Дизайн-студия цифровых продуктов",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
