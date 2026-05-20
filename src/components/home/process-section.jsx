@@ -159,14 +159,14 @@ export default function ProcessSection() {
   }, []);
 
   return (
-    <section id="services" className="bg-black py-12 sm:py-16">
+    <section id="services" className="bg-black py-7 sm:py-16">
       <PageContainer>
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-5 relative">
-          <div className="space-y-6 sticky top-36 h-fit">
-            <h2 className="text-[34px] font-semibold leading-[1.2] tracking-[-1.2px] text-[#fdfdfd] sm:text-[40px] sm:leading-[48px] sm:tracking-[-1.33px]">
+        <div className="relative grid gap-8 lg:grid-cols-2 lg:gap-5">
+          <div className="h-fit space-y-6 lg:sticky lg:top-36">
+            <h2 className="text-[28px] font-semibold leading-[40px]  text-[#fdfdfd] sm:text-[40px] sm:leading-[48px]">
               Как мы работаем
             </h2>
-            <p className="max-w-[530px] text-[16px] leading-7 tracking-[-0.33px] text-[#fdfdfd] sm:text-[18px]">
+            <p className="max-w-[530px] text-[16px] leading-6  text-[#fdfdfd] sm:text-[18px] sm:leading-7">
               От постановки задачи до готового дизайн-решения, ориентированного на
               пользователей и бизнес-результат
             </p>
@@ -206,22 +206,22 @@ export default function ProcessSection() {
                         }
                         className="flex h-10 w-12 items-center justify-center rounded-xl bg-[#a30d2d]"
                       >
-                        <img
+                        <Image
                           src={step.icon}
                           alt={step.iconAlt}
-                          
-                          className="max-h-6 max-w-6 w-auto m-auto top-0 bottom-0 left-0 right-0"
-                          style={{ width: "auto", height: "auto" }}
+                          width={24}
+                          height={24}
+                          className="m-auto h-6 w-6"
                           loading="lazy"
                         />
                       </span>
                     </div>
 
-                    <div className={`min-w-0 max-w-[380px] pt-1 ${isLast ? "pb-0" : "pb-8"}`}>
-                      <h3 className="text-[24px] font-semibold leading-8 tracking-[-1.33px] text-[#fdfdfd]">
+                    <div className={`min-w-0 max-w-[306px] pt-1 md:max-w-[380px] ${isLast ? "pb-0" : "pb-8"}`}>
+                      <h3 className="text-[24px] font-semibold leading-8  text-[#fdfdfd]">
                         {step.title}
                       </h3>
-                      <p className="mt-2 text-[16px] leading-6 tracking-[-0.33px] text-[#a5a5a5]">
+                      <p className="mt-2 text-[16px] leading-6  text-[#a5a5a5]">
                         {step.text}
                       </p>
                     </div>

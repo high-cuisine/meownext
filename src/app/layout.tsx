@@ -67,7 +67,7 @@ export default function RootLayout({
       data-roundness="medium"
       suppressHydrationWarning
     >
-      <body className="min-h-full bg-black text-white">
+      <body className="min-h-full tracking-[-.33%] bg-black text-white">
         <Script id="roundness-init" strategy="beforeInteractive">
           {roundnessInitScript}
         </Script>

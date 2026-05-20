@@ -12,6 +12,14 @@ body {
   font-family: var(--font-sans), "Segoe UI", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  scroll-margin-top: 90px;
+}
+
 a,
 button {
   cursor: pointer;

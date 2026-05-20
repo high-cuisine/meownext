@@ -1,37 +1,132 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import PageContainer from "@/components/ui/page-container";
-import Logo from "@pub/logo.svg"
+import Logo from "@pub/logo.svg";
 
-const menu = [
+const desktopMenu = [
   { href: "/projects", label: "Проекты" },
   { href: "#services", label: "Услуги" },
   { href: "#contacts", label: "Контакты" },
 ];
 
+const mobileMenu = [
+  { href: "/projects", label: "Проекты" },
+  { href: "#services", label: "Услуги" },
+  { href: "#cooperation", label: "Сотрудничество" },
+  { href: "#contacts", label: "Контакты" },
+];
+
 export default function SiteHeader() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
   return (
-    <header className="sticky top-0 z-40 ">
-      <PageContainer className="grid grid-cols-2 h-[88px] items-center justify-between gap-6">
-        <div>
-          <Link href="/" className="inline-flex items-center gap-2 text-white">
-            <Image width={"233px"} height={"88px"} src={Logo} />
-          </Link>
-        </div>
-        <div>
-          <nav className="flex items-center  gap-6 sm:gap-8">
-            {menu.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm text-zinc-300 transition-colors hover:text-white sm:text-base"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
+    <header className="sticky top-0 z-40">
+      <PageContainer className={`flex h-[88px] items-center justify-between gap-5 py-2 ${isScrolled ? "backdrop-blur-[12px] bg-black/80" : ""}`}>
+        <Link href="/" className="inline-flex items-center text-white">
+          <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
+        </Link>
+
+        <button
+          type="button"
+          aria-label="Открыть меню"
+          className="flex items-center justify-center rounded-xl p-3 md:hidden"
+          onClick={() => setIsMobileMenuOpen(true)}
+        >
+          <Image
+            src="/home/header-menu.svg"
+            alt=""
+            aria-hidden
+            width={24}
+            height={24}
+            className="size-6"
+          />
+        </button>
+
+        <nav className="hidden items-center gap-6 md:flex md:gap-8">
+          {desktopMenu.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="text-base font-medium leading-6  text-[#a5a5a5] transition-colors hover:text-white"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
       </PageContainer>
+
+      {isMobileMenuOpen ? (
+        <div className="fixed inset-0 z-[70] bg-[rgba(0,0,0,0.1)] backdrop-blur-[12px] md:hidden">
+          <div className="relative h-full w-full">
+            <div className="border-b border-[#333333] bg-[#1f1f1f]">
+              <PageContainer className="flex h-[88px] items-center justify-between gap-5 py-2">
+                <Link href="/" className="inline-flex items-center text-white" onClick={closeMobileMenu}>
+                  <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
+                </Link>
+
+                <button
+                  type="button"
+                  aria-label="Закрыть меню"
+                  className="flex items-center justify-center rounded-xl p-3"
+                  onClick={closeMobileMenu}
+                >
+                  <Image
+                    src="/home/header-close.svg"
+                    alt=""
+                    aria-hidden
+                    width={24}
+                    height={24}
+                    className="size-6"
+                  />
+                </button>
+              </PageContainer>
+              <nav className="flex flex-col gap-5 px-6 pb-16 pt-8">
+                {mobileMenu.map((item) => (
+                  <a
+                    key={`mobile-${item.href}`}
+                    href={item.href}
+                    className="text-[24px] font-medium leading-[32px]  text-[#a5a5a5] transition-colors hover:text-[#fdfdfd]"
+                    onClick={closeMobileMenu}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black/65 px-4 pb-12 pt-4">
+              <div className="flex justify-end">
+                <Link
+                  href="#cooperation"
+                  className="pointer-events-auto rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6  text-[#fdfdfd]"
+                  onClick={closeMobileMenu}
+                >
+                  Обсудить проект
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }

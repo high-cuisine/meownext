@@ -27,13 +27,13 @@ const cards = [
 
 export default function WhySection() {
   return (
-    <section className="bg-[#0a0a0a] py-12 sm:py-16">
+    <section className="bg-[#0a0a0a] py-7 sm:py-16">
       <PageContainer>
-        <h2 className="text-[32px] font-semibold leading-[40px] tracking-[-1px] text-[#fdfdfd] sm:text-[40px] sm:leading-[48px] sm:tracking-[-1.33px]">
+        <h2 className="text-[28px] font-semibold leading-[40px]  text-[#fdfdfd] sm:text-[40px] sm:leading-[48px]">
           Почему мы?
         </h2>
 
-        <div className="mt-9 grid gap-5 md:grid-cols-3">
+        <div className="mt-5 grid gap-3 md:mt-9 md:gap-5 md:grid-cols-3">
           {cards.map((card) => (
             <article
               key={card.title}
@@ -50,11 +50,11 @@ export default function WhySection() {
                 />
               </div>
 
-              <h3 className="text-[24px] font-semibold leading-8 tracking-[-1.33px] text-[#fdfdfd]">
+              <h3 className="text-[24px] font-semibold leading-8  text-[#fdfdfd]">
                 {card.title}
               </h3>
 
-              <p className="text-[16px] leading-6 tracking-[-0.33px] text-[#a5a5a5]">
+              <p className="text-[16px] leading-6  text-[#a5a5a5]">
                 {card.text}
               </p>
             </article>

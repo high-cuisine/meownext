@@ -161,7 +161,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-black py-12 sm:py-16">
+    <section id="cooperation" className="relative overflow-hidden bg-black py-7 sm:py-16">
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute z-0 bottom-0 left-1/2 scale-120 blur-xl bg-[#A30D2D] w-[1740px] -translate-x-1/2">
           <Image src="/home/form-bg-aurora.jpg" alt="" width={2240} height={2446} className="h-auto w-full max-w-none" />
@@ -180,15 +180,15 @@ export default function ContactSection() {
 
       <PageContainer className="relative">
         <div className="mx-auto max-w-[713px]">
-          <h2 className="text-center text-[34px] font-semibold leading-[1.2] tracking-[-1.2px] text-[#fdfdfd] sm:text-[40px] sm:leading-[48px] sm:tracking-[-1.33px]">
+          <h2 className="text-[28px] font-semibold leading-[40px]  text-[#fdfdfd] sm:text-center sm:text-[40px] sm:leading-[48px]">
             Начнём работу?
           </h2>
 
-          <form className="mt-8 space-y-8" onSubmit={handleSubmit} noValidate>
+          <form className="mt-5 space-y-8 sm:mt-8" onSubmit={handleSubmit} noValidate>
             <div className="grid gap-6 md:grid-cols-[417px_256px] md:gap-10">
               <div className="space-y-6">
                 <label className="flex flex-col gap-1">
-                  <span className="px-1 text-base font-medium leading-6 tracking-[-0.66px] text-[#fdfdfd]">
+                  <span className="px-1 text-base font-medium leading-6  text-[#fdfdfd]">
                     Ваше имя
                   </span>
                   <input
@@ -200,22 +200,22 @@ export default function ContactSection() {
                     onBlur={() => handleBlur("name")}
                     aria-invalid={Boolean(shouldShowError("name") && errors.name)}
                     aria-describedby={shouldShowError("name") && errors.name ? "contact-name-error" : undefined}
-                    className={`w-full rounded-xl border px-4 py-3 text-base leading-6 tracking-[-0.33px] text-[#fdfdfd] outline-none placeholder:text-[#7a7a7a] ${getFieldClasses(
+                    className={`w-full rounded-xl border px-4 py-3 text-base leading-6  text-[#fdfdfd] outline-none placeholder:text-[#7a7a7a] ${getFieldClasses(
                       shouldShowError("name") && errors.name,
                     )}`}
                   />
                   {shouldShowError("name") && errors.name ? (
-                    <span id="contact-name-error" className="px-1 pt-1 text-xs leading-4 tracking-[-0.33px] text-[#ff1447]">
+                    <span id="contact-name-error" className="px-1 pt-1 text-xs leading-4  text-[#ff1447]">
                       {errors.name}
                     </span>
                   ) : null}
                 </label>
 
                 <fieldset className="space-y-2">
-                  <legend className="px-1 text-base font-medium leading-6 tracking-[-0.66px] text-[#fdfdfd]">
+                  <legend className="px-1 text-base font-medium leading-6  text-[#fdfdfd]">
                     Что Вас интересует?
                   </legend>
-                  <div className="flex flex-nowrap justify-between" role="radiogroup" aria-label="Что вас интересует">
+                  <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Что вас интересует">
                     {topics.map((topic) => {
                       const isSelected = formData.interests.includes(topic);
                       const isDimmed = formData.interests.length > 0 && !isSelected;
@@ -227,7 +227,7 @@ export default function ContactSection() {
                           onClick={() => toggleInterest(topic)}
                           role="radio"
                           aria-checked={isSelected}
-                          className={`rounded-xl border ring-1 ring-inset px-4 py-3 text-base font-medium leading-6 tracking-[-0.66px] transition-all duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff1447] ${getTopicButtonClasses(
+                          className={`rounded-xl border ring-1 ring-inset px-4 py-3 text-base font-medium leading-6  transition-all duration-300 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff1447] ${getTopicButtonClasses(
                             isSelected,
                             isDimmed,
                           )}`}
@@ -241,12 +241,12 @@ export default function ContactSection() {
                     })}
                   </div>
                   {shouldShowError("interests") && errors.interests ? (
-                    <p className="px-1 text-xs leading-4 tracking-[-0.33px] text-[#ff1447]">{errors.interests}</p>
+                    <p className="px-1 text-xs leading-4  text-[#ff1447]">{errors.interests}</p>
                   ) : null}
                 </fieldset>
 
                 <label className="flex flex-col gap-1">
-                  <span className="px-1 text-base font-medium leading-6 tracking-[-0.66px] text-[#fdfdfd]">
+                  <span className="px-1 text-base font-medium leading-6  text-[#fdfdfd]">
                     Описание проекта
                   </span>
                   <textarea
@@ -258,12 +258,12 @@ export default function ContactSection() {
                     onBlur={() => handleBlur("project")}
                     aria-invalid={Boolean(shouldShowError("project") && errors.project)}
                     aria-describedby={shouldShowError("project") && errors.project ? "contact-project-error" : undefined}
-                    className={`min-h-[66px] w-full resize-none rounded-xl border px-4 py-3 text-base leading-6 tracking-[-0.33px] text-[#fdfdfd] outline-none placeholder:text-[#7a7a7a] ${getFieldClasses(
+                    className={`min-h-[66px] w-full resize-none rounded-xl border px-4 py-3 text-base leading-6  text-[#fdfdfd] outline-none placeholder:text-[#7a7a7a] ${getFieldClasses(
                       shouldShowError("project") && errors.project,
                     )}`}
                   />
                   {shouldShowError("project") && errors.project ? (
-                    <span id="contact-project-error" className="px-1 pt-1 text-xs leading-4 tracking-[-0.33px] text-[#ff1447]">
+                    <span id="contact-project-error" className="px-1 pt-1 text-xs leading-4  text-[#ff1447]">
                       {errors.project}
                     </span>
                   ) : null}
@@ -272,7 +272,7 @@ export default function ContactSection() {
 
               <div className="space-y-6">
                 <fieldset className="space-y-1">
-                  <legend className="px-1 text-base font-medium leading-6 tracking-[-0.66px] text-[#fdfdfd]">
+                  <legend className="px-1 text-base font-medium leading-6  text-[#fdfdfd]">
                     Способ связи
                   </legend>
                   <div className="grid grid-cols-3 rounded-3 border border-[#333333] bg-[#141414] p-1">
@@ -297,7 +297,7 @@ export default function ContactSection() {
                 </fieldset>
 
                 <label className="flex flex-col gap-1">
-                  <span className="px-1 text-base font-medium leading-6 tracking-[-0.66px] text-[#fdfdfd]">
+                  <span className="px-1 text-base font-medium leading-6  text-[#fdfdfd]">
                     {selectedChannel.inputLabel}
                   </span>
                   <input
@@ -309,13 +309,13 @@ export default function ContactSection() {
                     onBlur={() => handleBlur("contact")}
                     aria-invalid={Boolean(shouldShowError("contact") && errors.contact)}
                     aria-describedby="contact-helper"
-                    className={`w-full rounded-xl border px-4 py-3 text-base leading-6 tracking-[-0.33px] text-[#fdfdfd] outline-none placeholder:text-[#7a7a7a] ${getFieldClasses(
+                    className={`w-full rounded-xl border px-4 py-3 text-base leading-6  text-[#fdfdfd] outline-none placeholder:text-[#7a7a7a] ${getFieldClasses(
                       shouldShowError("contact") && errors.contact,
                     )}`}
                   />
                   <span
                     id="contact-helper"
-                    className={`px-1 text-xs leading-4 tracking-[-0.33px] ${shouldShowError("contact") && errors.contact ? "text-[#ff1447]" : "text-[#a5a5a5]"
+                    className={`px-1 text-xs leading-4  ${shouldShowError("contact") && errors.contact ? "text-[#ff1447]" : "text-[#a5a5a5]"
                       }`}
                   >
                     {shouldShowError("contact") && errors.contact ? errors.contact : selectedChannel.helper}
@@ -325,7 +325,7 @@ export default function ContactSection() {
             </div>
 
             <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-              <label className="flex flex-1 items-start gap-3 text-base font-medium leading-6 tracking-[-0.33px] text-[#a5a5a5]">
+              <label className="flex flex-1 items-start gap-3 text-base font-medium leading-6  text-[#a5a5a5]">
                 <input
                   type="checkbox"
                   name="policy"
@@ -348,7 +348,7 @@ export default function ContactSection() {
                     Политику конфиденциальности
                   </a>
                   {shouldShowError("policy") && errors.policy ? (
-                    <span className="block pt-1 text-xs leading-4 tracking-[-0.33px] text-[#ff1447]">{errors.policy}</span>
+                    <span className="block pt-1 text-xs leading-4  text-[#ff1447]">{errors.policy}</span>
                   ) : null}
                 </span>
               </label>
@@ -356,7 +356,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={!isFormValid}
-                className={`rounded-xl px-5 py-3 text-base font-medium leading-6 tracking-[-0.66px] transition-colors ${isFormValid
+                className={`w-full rounded-xl px-5 py-3 text-base font-medium leading-6  transition-colors lg:w-auto ${isFormValid
                   ? "bg-[#c20f36] text-[#fdfdfd] hover:bg-[#ab0d30]"
                   : "cursor-not-allowed bg-[#292929] text-[#7a7a7a]"
                   }`}

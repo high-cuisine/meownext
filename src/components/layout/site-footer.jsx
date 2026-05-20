@@ -16,17 +16,17 @@ export default function SiteFooter() {
   return (
     <footer
       id="contacts"
-      className="border-t border-[#333333] bg-[#0a0a0a] pb-12 pt-12 md:pt-16"
+      className="border-t border-[#333333] bg-[#0a0a0a] pb-12 pt-8 md:pt-16"
     >
       <PageContainer className="flex flex-col gap-12 md:flex-row md:items-stretch md:gap-5">
-        <div className="flex min-h-[176px] min-w-0 flex-1 flex-col justify-between gap-5">
+        <div className="flex md:min-h-[176px] min-w-0 flex-1 flex-col justify-between gap-5">
           <a
             href="mailto:meowdes.studio@gmail.com"
-            className="w-fit text-[32px] font-medium leading-[1.2] tracking-[-1px] text-[#fdfdfd] transition-colors hover:text-[#ffffff] md:text-[40px] md:leading-[48px] md:tracking-[-1.33px]"
+            className="w-fit text-[24px] font-medium leading-[1.2]  text-[#fdfdfd] transition-colors hover:text-[#ffffff] md:text-[40px] md:leading-[48px] md:"
           >
             meowdes.studio@gmail.com
           </a>
-          <p className="text-sm leading-5 tracking-[-0.33px] text-[#7a7a7a]">© Meowdes 2026</p>
+          <p className="hidden text-sm leading-5  text-[#7a7a7a] md:block">© Meowdes 2026</p>
         </div>
 
         <div className="flex w-full max-w-[424px] min-w-0 flex-col gap-12">
@@ -43,7 +43,7 @@ export default function SiteFooter() {
                     <Image src={item.icon} alt="" aria-hidden fill className="object-contain" />
                   </span>
                 </span>
-                <span className="text-base leading-6 tracking-[-0.66px] text-[#a5a5a5] transition-colors group-hover:text-[#fdfdfd]">
+                <span className="text-base leading-6  text-[#a5a5a5] transition-colors group-hover:text-[#fdfdfd]">
                   {item.label}
                 </span>
               </Link>
@@ -55,13 +55,15 @@ export default function SiteFooter() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="w-fit px-1 text-base font-medium leading-6 tracking-[-0.66px] text-[#a5a5a5] transition-colors hover:text-[#fdfdfd]"
+                className="w-fit px-1 text-base font-medium leading-6  text-[#a5a5a5] transition-colors hover:text-[#fdfdfd]"
               >
                 {item.label}
               </Link>
             ))}
           </div>
         </div>
+
+        <p className="text-sm leading-5  text-[#7a7a7a] md:hidden">© Meowdes 2026</p>
       </PageContainer>
     </footer>
   );

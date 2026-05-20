@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 import PageContainer from "@/components/ui/page-container";
-import Case1 from "@pub/mock/case.png"
-import Case2 from "@pub/mock/case (1).png"
-import Case3 from "@pub/mock/case (2).png"
+import Case1 from "@pub/mock/case.png";
+import Case2 from "@pub/mock/case (1).png";
+import Case3 from "@pub/mock/case (2).png";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -16,10 +16,10 @@ const cases = [
 export default function CasesSection() {
   const [hovered, setHovered] = useState([]);
   return (
-    <section className="py-8 sm:py-10">
-      <PageContainer>
-        <div className="grid gap-4 md:grid-cols-3">
-          {cases.map((item) => (
+    <section className="py-5 sm:py-10">
+      <PageContainer className="px-1 sm:px-8 xl:px-0">
+        <div className="grid gap-1 sm:gap-4 md:grid-cols-3">
+          {cases.map((item, index) => (
             <article
               onMouseEnter={() =>
                 setHovered((prev) =>
@@ -28,19 +28,24 @@ export default function CasesSection() {
               }
               onMouseLeave={() =>
                 setHovered((prev) =>
-                  prev.filter((e) => e !== item.id)
+                  prev.filter((e) => e !== item.id),
                 )
               }
               key={item.id}
-              className={`bg-[#000] cursor-pointer relative aspect-square overflow-hidden rounded-[28px] flex items-end`}
+              className={`relative flex aspect-square cursor-pointer items-end overflow-hidden rounded-[32px] bg-[#000] ${
+                index === 2 ? "hidden md:flex" : ""
+              }`}
             >
-              <Image src={item.image} className="pointer-events-none absolute scale-105 blur-md" />
-              <Image src={item.image} className="pointer-events-none absolute scale-105 blur-sm" />
-              
-              
-              <Image src={item.image} className="pointer-events-none absolute w-full h-full" />
+              <Image src={item.image} alt="" aria-hidden className="pointer-events-none absolute scale-105 blur-md" />
+              <Image src={item.image} alt="" aria-hidden className="pointer-events-none absolute scale-105 blur-sm" />
+              <Image src={item.image} alt={item.title} className="pointer-events-none absolute h-full w-full" />
 
-              <div style={{background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.64) 100%)"}} className={`grid grid-cols-2 items-end z-10 p-[24px] transition-all ease-in-out duration-350 w-full ${hovered.includes(item.id) ? "opacity-100 " : "opacity-0 translate-y-7"}`}>
+              <div
+                style={{ background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.64) 100%)" }}
+                className={`z-10 grid w-full grid-cols-2 items-end p-6 transition-all duration-350 ease-in-out ${
+                  hovered.includes(item.id) ? "opacity-100 " : "translate-y-7 opacity-0"
+                }`}
+              >
                 <p
                   className={`text-[32px] line-clamp-1 leading-9 font-medium text-white`}
                 >
@@ -56,7 +61,6 @@ export default function CasesSection() {
           ))}
         </div>
       </PageContainer>
-
-    </section >
+    </section>
   );
 }
