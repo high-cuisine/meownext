@@ -62,6 +62,18 @@ function getFieldClasses(hasError) {
   return "border-[#333333] bg-[#141414] hover:border-[#4e4e4e] hover:bg-[#1f1f1f] focus:border-[#4e4e4e]";
 }
 
+function getTopicButtonClasses(isSelected, isDisabled) {
+  if (isDisabled) {
+    return "border border-transparent bg-[#1f1f1f] text-[#7a7a7a]";
+  }
+
+  if (isSelected) {
+    return "border border-[#ff1447] bg-[#333333] text-[#fdfdfd]";
+  }
+
+  return "border border-transparent bg-[#333333] text-[#fdfdfd] hover:bg-[#4e4e4e]";
+}
+
 function validateForm(formData, selectedChannel) {
   const errors = {};
 
@@ -125,9 +137,7 @@ export default function ContactSection() {
     setTouched((prev) => ({ ...prev, interests: true }));
     setFormData((prev) => {
       const hasInterest = prev.interests.includes(interest);
-      const nextInterests = hasInterest
-        ? prev.interests.filter((item) => item !== interest)
-        : [...prev.interests, interest];
+      const nextInterests = hasInterest ? prev.interests : [interest];
 
       return { ...prev, interests: nextInterests };
     });
@@ -198,20 +208,22 @@ export default function ContactSection() {
                   <legend className="px-1 text-base font-medium leading-6 tracking-[-0.66px] text-[#fdfdfd]">
                     Что Вас интересует?
                   </legend>
-                  <div className="flex flex-nowrap content-between">
+                  <div className="flex flex-nowrap justify-between" role="radiogroup" aria-label="Что вас интересует">
                     {topics.map((topic) => {
                       const isSelected = formData.interests.includes(topic);
+                      const isDisabled = formData.interests.length > 0 && !isSelected;
 
                       return (
                         <button
                           key={topic}
                           type="button"
                           onClick={() => toggleInterest(topic)}
-                          className={`rounded-xl border px-4 py-3 text-base font-medium leading-6 tracking-[-0.66px] transition-colors ${
-                            isSelected
-                              ? "border-[#4e4e4e] bg-[#1f1f1f] text-[#fdfdfd]"
-                              : "border-[#333333] bg-[#333333] text-[#fdfdfd] hover:border-[#4e4e4e]"
-                          }`}
+                          role="radio"
+                          aria-checked={isSelected}
+                          className={`rounded-xl px-4 py-3 text-base font-medium leading-6 tracking-[-0.66px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff1447] ${getTopicButtonClasses(
+                            isSelected,
+                            isDisabled,
+                          )}`}
                         >
                           {topic}
                         </button>
