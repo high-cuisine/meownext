@@ -18,7 +18,7 @@ export default function CasesSection() {
   return (
     <section className="py-5 sm:py-10">
       <PageContainer className="px-1 sm:px-8 xl:px-0">
-        <div className="grid gap-1 sm:gap-4 md:grid-cols-3">
+        <div className="grid gap-1 sm:gap-4 md:grid-cols-3 sm:grid-cols-2">
           {cases.map((item, index) => (
             <article
               onMouseEnter={() =>

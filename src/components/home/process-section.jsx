@@ -191,10 +191,10 @@ export default function ProcessSection() {
             <ol className="relative z-10 space-y-5 md:space-y-0">
               {steps.map((step, index) => {
                 const isLast = index === steps.length - 1;
-                const itemHeightClass = isLast ? "md:min-h-[128px]" : "md:min-h-[280px]";
+                const itemHeightClass = isLast ? "xl:min-h-[128px]" : "xl:min-h-[280px]";
 
                 return (
-                  <li key={step.title} className={`flex gap-6 ${itemHeightClass}`}>
+                  <li key={step.title} className={`flex gap-6  ${itemHeightClass}`}>
                     <div className="w-12 shrink-0">
                       <span
                         ref={
@@ -217,7 +217,7 @@ export default function ProcessSection() {
                       </span>
                     </div>
 
-                    <div className={`min-w-0 max-w-[306px] pt-1 md:max-w-[380px] ${isLast ? "pb-0" : "pb-8"}`}>
+                    <div className={`min-w-0 w-full max-w-[100%] pt-1 xl:max-w-[380px] ${isLast ? "pb-0" : "pb-8"}`}>
                       <h3 className="text-[24px] font-semibold leading-8  text-[#fdfdfd]">
                         {step.title}
                       </h3>

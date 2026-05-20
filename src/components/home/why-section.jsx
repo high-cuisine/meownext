@@ -33,7 +33,7 @@ export default function WhySection() {
           Почему мы?
         </h2>
 
-        <div className="mt-5 grid gap-3 md:mt-9 md:gap-5 md:grid-cols-3">
+        <div className="mt-5 grid gap-3 md:mt-9 md:gap-5 lg:grid-cols-3 sm:grid-cols-2">
           {cards.map((card) => (
             <article
               key={card.title}
