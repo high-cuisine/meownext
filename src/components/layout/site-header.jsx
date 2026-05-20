@@ -53,7 +53,7 @@ export default function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40">
-      <PageContainer className={`flex h-[88px] items-center justify-between gap-5 py-2 transition-all duration-1000 backdrop-blur-[0px] bg-black/00 ${isScrolled ? "backdrop-blur-[12px] bg-black/70" : " "}`}>
+      <PageContainer className={`flex h-[88px] items-center justify-between gap-5 py-2 transition-all duration-1000 backdrop-blur-[0px] bg-black/00 ${isScrolled ? "backdrop-blur-[12px] bg-black" : " "}`}>
         <Link href="/" className="inline-flex items-center text-white">
           <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
         </Link>

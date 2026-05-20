@@ -29,15 +29,15 @@ export default function WhySection() {
   return (
     <section className="bg-[#0a0a0a] py-7 sm:py-16">
       <PageContainer>
-        <h2 className="text-[28px] font-semibold leading-[40px]  text-[#fdfdfd] sm:text-[40px] sm:leading-[48px]">
+        <h2 className="text-[28px] font-semibold leading-[40px] sticky top-[120px] text-[#fdfdfd] sm:text-[40px] sm:leading-[48px]">
           Почему мы?
         </h2>
 
-        <div className="mt-5 grid gap-3 md:mt-9 md:gap-5 lg:grid-cols-3 sm:grid-cols-2">
+        <div className="mt-5 grid grid-rows-3 gap-3 md:mt-9 md:gap-5 lg:grid-cols-3 sm:grid-cols-2 relative">
           {cards.map((card) => (
             <article
               key={card.title}
-              className="flex h-full flex-col gap-5 rounded-[32px] bg-[#1f1f1f] p-5"
+              className="flex h-full flex-col gap-5 rounded-[32px] sticky sm:relative top-[180px] md:top-auto bg-[#1f1f1f] p-5"
             >
               <div className="relative size-32 overflow-hidden rounded-[20px] border border-[#333333]">
                 <Image

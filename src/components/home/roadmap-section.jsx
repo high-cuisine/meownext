@@ -62,7 +62,7 @@ export default function RoadmapSection() {
         </div>
 
         <div className="mt-5 sm:hidden">
-          <div className="-mx-3 overflow-x-auto px-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="-mx-3 snap-x snap-mandatory overflow-x-auto px-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <div className="w-max">
               <div className="flex items-end">
                 {timelineDays.map((day, index) => {
@@ -130,10 +130,12 @@ export default function RoadmapSection() {
               </div>
 
               <div className="mt-5 flex gap-5">
-                {roadmapCards.map((card) => (
+                {roadmapCards.map((card, index) => (
                   <article
                     key={`mobile-${card.title}`}
-                    className="h-[276px] w-[324px] rounded-[20px] border border-[#333333] bg-[#141414] p-5"
+                    className={`h-[276px] w-[324px] rounded-[20px] border border-[#333333] bg-[#141414] p-5 ${
+                      index === 0 ? "snap-start" : "snap-center"
+                    } snap-always`}
                   >
                     <h3 className="text-[24px] font-semibold leading-8  text-[#fdfdfd]">
                       {card.title}
