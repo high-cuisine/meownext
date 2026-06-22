@@ -7,20 +7,30 @@ import Case3 from "@pub/mock/case (2).png";
 import Image from "next/image";
 import { useState } from "react";
 
-const cases = [
-  { id: 1, title: "Walmi", tone: "from-zinc-700 via-zinc-900 to-zinc-950", image: Case1, type: "Site" },
-  { id: 2, title: "FinStroy", tone: "from-emerald-600 via-emerald-800 to-zinc-950", image: Case2 },
-  { id: 3, title: "ArchiDocs", tone: "from-slate-300 via-slate-500 to-slate-800", image: Case3 },
+const CASE_ASSETS = [
+  { image: Case1, tone: "from-zinc-700 via-zinc-900 to-zinc-950" },
+  { image: Case2, tone: "from-emerald-600 via-emerald-800 to-zinc-950" },
+  { image: Case3, tone: "from-slate-300 via-slate-500 to-slate-800" },
 ];
 
-export default function CasesSection() {
+const DEFAULT_CASES = [
+  { id: 1, title: "Walmi", type: "Site" },
+  { id: 2, title: "FinStroy", type: null },
+  { id: 3, title: "ArchiDocs", type: null },
+];
+
+export default function CasesSection({ cases = DEFAULT_CASES }) {
   const [hovered, setHovered] = useState([]);
+
   return (
-    <section className="py-5 sm:py-10">
+    <div className="relative py-5 sm:py-10">
       <PageContainer className="px-1 sm:px-8 xl:px-0">
         <div className="grid gap-1 sm:gap-4 md:grid-cols-3 sm:grid-cols-2">
-          {cases.map((item, index) => (
+          {cases.map((item, index) => {
+            const assets = CASE_ASSETS[index] ?? CASE_ASSETS[0];
+            return (
             <article
+              data-reveal
               onMouseEnter={() =>
                 setHovered((prev) =>
                   prev.includes(item.id) ? prev : [...prev, item.id]
@@ -32,13 +42,13 @@ export default function CasesSection() {
                 )
               }
               key={item.id}
-              className={`relative flex aspect-square cursor-pointer items-end overflow-hidden rounded-[32px] bg-[#000] ${
+              className={`relative flex aspect-square cursor-pointer items-end overflow-hidden rounded-[32px] bg-[#000] transition-transform duration-300 active:scale-[0.99] ${
                 index === 2 ? "hidden md:flex" : ""
               }`}
             >
-              <Image src={item.image} alt="" aria-hidden className="pointer-events-none absolute scale-105 blur-md" />
-              <Image src={item.image} alt="" aria-hidden className="pointer-events-none absolute scale-105 blur-sm" />
-              <Image src={item.image} alt={item.title} className="pointer-events-none absolute h-full w-full" />
+              <Image src={assets.image} alt="" aria-hidden className="pointer-events-none absolute scale-105 blur-md" />
+              <Image src={assets.image} alt="" aria-hidden className="pointer-events-none absolute scale-105 blur-sm" />
+              <Image src={assets.image} alt={item.title} className="pointer-events-none absolute h-full w-full" />
 
               <div
                 style={{ background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.64) 100%)" }}
@@ -58,9 +68,10 @@ export default function CasesSection() {
                 </p>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </PageContainer>
-    </section>
+    </div>
   );
 }

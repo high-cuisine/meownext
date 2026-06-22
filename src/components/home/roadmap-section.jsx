@@ -1,7 +1,7 @@
 import Image from "next/image";
 import PageContainer from "@/components/ui/page-container";
 
-const roadmapCards = [
+const DEFAULT_CARDS = [
   {
     title: "Старт проекта",
     points: [
@@ -28,24 +28,29 @@ const roadmapCards = [
   },
 ];
 
-const timelineDays = [
+const DEFAULT_TIMELINE_DAYS = [
   { currentLabel: "Сегодня" },
   { currentLabel: "День 5" },
   { currentLabel: "День 10", crossedLabel: "День 30" },
 ];
 
-export default function RoadmapSection() {
+export default function RoadmapSection({
+  heading = "Современный дизайн не должен\nразрабатываться месяцами",
+  subtext = "Используем нейросети для ускоренной реализации вашего проекта",
+  cards = DEFAULT_CARDS,
+  timelineDays = DEFAULT_TIMELINE_DAYS,
+}) {
   return (
     <section className="bg-[#0a0a0a] py-7 sm:py-16">
       <PageContainer>
-        <h2 className="mx-auto max-w-[860px] break-words text-[28px] font-semibold leading-[40px]  text-[#fdfdfd] sm:text-center sm:text-[40px] sm:leading-[48px]">
-          Современный дизайн не должен
-          <br />
-          разрабатываться месяцами
+        <h2 data-reveal className="mx-auto max-w-[860px] break-words text-[28px] font-semibold leading-[40px]  text-[#fdfdfd] sm:text-center sm:text-[40px] sm:leading-[48px]">
+          {heading.split("\n").map((line, i, arr) => (
+            <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+          ))}
         </h2>
 
-        <div className="mt-5 flex flex-wrap items-center gap-2 text-[16px] leading-[24px]  text-[#fdfdfd] sm:mt-8 sm:justify-center sm:text-center sm:text-[18px] sm:leading-[28px]">
-          <p>Используем</p>
+        <div data-reveal className="mt-5 flex flex-wrap items-center gap-2 text-[16px] leading-[24px]  text-[#fdfdfd] sm:mt-8 sm:justify-center sm:text-center sm:text-[18px] sm:leading-[28px]">
+          <p>{subtext}</p>
           <div className="inline-flex items-center gap-1 rounded-xl border border-[#4e4e4e] bg-[#1f1f1f] py-1 pl-1 pr-2">
             <span className="relative size-7 shrink-0">
               <Image
@@ -58,7 +63,6 @@ export default function RoadmapSection() {
             </span>
             <span>нейросети</span>
           </div>
-          <p>для ускоренной реализации вашего проекта</p>
         </div>
 
         <div className="mt-5 sm:hidden">
@@ -130,9 +134,10 @@ export default function RoadmapSection() {
               </div>
 
               <div className="mt-5 flex gap-5">
-                {roadmapCards.map((card, index) => (
+                {cards.map((card, index) => (
                   <article
                     key={`mobile-${card.title}`}
+                    data-reveal
                     className={`h-[276px] w-[324px] rounded-[20px] border border-[#333333] bg-[#141414] p-5 ${
                       index === 0 ? "snap-start" : "snap-center"
                     } snap-always`}
@@ -215,9 +220,10 @@ export default function RoadmapSection() {
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
-            {roadmapCards.map((card) => (
+            {cards.map((card) => (
               <article
                 key={card.title}
+                data-reveal
                 className="h-full rounded-[20px] border border-[#333333] bg-[#141414] p-5"
               >
                 <h3 className="text-[24px] font-semibold leading-8  text-[#fdfdfd]">

@@ -39,3 +39,104 @@ button {
     z-index: 2147483647;
   }
 }
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(52px) scale(0.95);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes modal-card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes modal-card-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(24px) scale(0.98); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay-anim,
+  .modal-card-anim {
+    animation: none !important;
+  }
+}
+
+html[data-reveal-mode] main [data-reveal] {
+  opacity: 0;
+}
+
+html[data-reveal-mode] main [data-reveal][data-revealed] {
+  animation: reveal-rise 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-reveal-mode] main [data-reveal] {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}
+
+:root {
+  --site-roundness: 16px;
+}
+
+html[data-roundness="small"] {
+  --site-roundness: 8px;
+}
+
+html[data-roundness="medium"] {
+  --site-roundness: 16px;
+}
+
+html[data-roundness="large"] {
+  --site-roundness: 32px;
+}
+
+html[data-roundness] [data-site-roundness],
+html[data-roundness] button[class*="rounded-"]:not([class*="rounded-full"]),
+html[data-roundness] a[class*="rounded-"]:not([class*="rounded-full"]) {
+  border-radius: var(--site-roundness) !important;
+  transition: border-radius 0.5s ease-in-out;
+}
+
+.btn-press {
+  transition:
+    background-color 0.65s ease-in-out,
+    transform 0.8s ease-in-out,
+    opacity 0.65s ease-in-out;
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+  transition-duration: 0.6s;
+  transition-timing-function: ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-press {
+    transition: background-color 0.5s ease-in-out;
+  }
+
+  .btn-press:active {
+    transform: none;
+  }
+}

@@ -37,8 +37,13 @@ function applyRoundness(value) {
   document.documentElement.setAttribute("data-roundness", value);
 }
 
-export default function BalanceSection() {
+export default function BalanceSection({
+  heading = "Идеальный баланс между UX, UI и бизнес-результатом для цифровых продуктов",
+  description = "Проектируем интерфейсы, в которых пользовательский опыт, визуальная система и цели бизнеса выстроены в единую, работающую модель",
+  ctaText = "Наши услуги",
+}) {
   const [roundness, setRoundness] = useState(ROUNDNESS_FALLBACK);
+  const activeRoundnessIndex = ROUNDNESS_OPTIONS.findIndex((o) => o.value === roundness);
 
   useEffect(() => {
     try {
@@ -69,13 +74,23 @@ export default function BalanceSection() {
     <section className="bg-[#0a0a0a] py-7 sm:py-16">
       <PageContainer>
         <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-5">
-          <div className="order-2 flex flex-col items-start gap-5 lg:order-1 lg:gap-8">
+          <div data-reveal className="order-2 flex flex-col items-start gap-5 lg:order-1 lg:gap-8">
             <div
               id="roundnessSelector"
-              className="inline-flex rounded-full border border-[#333333] bg-[#141414] p-1"
+              data-roundness-control
+              className="relative inline-flex rounded-full border border-[#333333] bg-[#141414] p-1"
               role="radiogroup"
               aria-label="Выбор радиуса скругления"
             >
+              <span
+                aria-hidden
+                className="pointer-events-none absolute top-1 bottom-1 rounded-full bg-[#333333] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+                style={{
+                  width: "calc((100% - 8px) / 3)",
+                  left: "4px",
+                  transform: `translateX(calc(${activeRoundnessIndex} * 100%))`,
+                }}
+              />
               {ROUNDNESS_OPTIONS.map((option) => {
                 const isActive = roundness === option.value;
 
@@ -87,8 +102,8 @@ export default function BalanceSection() {
                     aria-checked={isActive}
                     aria-label={option.label}
                     onClick={() => handleRoundnessSelect(option.value)}
-                    className={`flex items-center justify-center rounded-full px-5 py-2 transition-colors ${
-                      isActive ? "bg-[#333333]" : "bg-transparent"
+                    className={`relative z-10 flex items-center justify-center rounded-full px-5 py-2 transition-[background-color,transform] active:scale-95 ${
+                      isActive ? "" : "hover:bg-[#1f1f1f] active:bg-[#292929]"
                     }`}
                   >
                     <Image
@@ -106,23 +121,26 @@ export default function BalanceSection() {
             </div>
 
             <h2 className="max-w-[690px] text-[28px] font-medium leading-[40px]  text-white sm:text-[40px] sm:leading-[48px]">
-              Идеальный баланс между UX, UI и бизнес-результатом для цифровых продуктов
+              {heading}
             </h2>
 
             <p className="max-w-[660px] text-[16px] leading-6  text-[#fdfdfd] sm:text-[18px] sm:leading-7">
-              Проектируем интерфейсы, в которых пользовательский опыт, визуальная система и цели бизнеса
-              выстроены в единую, работающую модель
+              {description}
             </p>
 
             <button
               type="button"
-              className="rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6  text-white transition-colors hover:bg-[#ab0d30]"
+              className="btn-press rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6  text-white hover:bg-[#ab0d30] active:bg-[#8f0b28]"
             >
-              Наши услуги
+              {ctaText}
             </button>
           </div>
 
-          <div className="order-1 relative aspect-[646/400] w-full overflow-hidden rounded-[32px] border border-[#333333] bg-[#141414] lg:order-2">
+          <div
+            data-reveal
+            data-site-roundness
+            className="order-1 relative aspect-[646/400] w-full overflow-hidden rounded-[32px] border border-[#333333] bg-[#141414] lg:order-2"
+          >
             <Image
               src="/home/balance-image.png"
               alt="Иллюстрация баланса UX, UI и бизнес-целей"

@@ -4,24 +4,28 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import PageContainer from "@/components/ui/page-container";
+import ContactModal from "@/components/forms/contact-modal";
 import Logo from "@pub/logo.svg";
 
-const desktopMenu = [
+const DEFAULT_DESKTOP_MENU = [
   { href: "/projects", label: "Проекты" },
-  { href: "#services", label: "Услуги" },
-  { href: "#contacts", label: "Контакты" },
+  { href: "/services", label: "Услуги" },
 ];
 
-const mobileMenu = [
+const DEFAULT_MOBILE_MENU = [
   { href: "/projects", label: "Проекты" },
-  { href: "#services", label: "Услуги" },
+  { href: "/services", label: "Услуги" },
   { href: "#cooperation", label: "Сотрудничество" },
-  { href: "#contacts", label: "Контакты" },
 ];
 
-export default function SiteHeader() {
+export default function SiteHeader({
+  ctaText = "Обсудить проект",
+  desktopMenu = DEFAULT_DESKTOP_MENU,
+  mobileMenu = DEFAULT_MOBILE_MENU,
+}) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,20 +61,22 @@ export default function SiteHeader() {
     >
       <PageContainer className={`flex xl:grid grid-cols-2 h-[88px] items-center justify-between gap-5 py-2 transition-all duration-1000 backdrop-blur-[0px] bg-black/00 ${isScrolled ? "backdrop-blur-[12px] bg-black" : " "}`}>
         <div className="flex items-center gap-[24px]">
-          <Link href="/" className="inline-flex items-center text-white">
+          <Link href="/" className="inline-flex items-center text-white transition-opacity hover:opacity-80 active:opacity-60">
             <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
           </Link>
-          <a
-            href="#cooperation"
-            style={{transition: " 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)", transformOrigin:" top center"}}
-            className={`hidden md:block rounded-xl bg-[#333333] px-5 py-3 scale-0 opacity-0  
-              text-base font-medium leading-6 text-[#fdfdfd]  transition-all duration-500
+          <button
+            type="button"
+            onClick={() => setIsContactOpen(true)}
+            style={{ transformOrigin: "top center" }}
+            className={`btn-press hidden md:block rounded-xl bg-[#333333] px-5 py-3 scale-0 opacity-0
+              text-base font-medium leading-6 text-[#fdfdfd] transition-all duration-500
+              hover:bg-[#4e4e4e] active:bg-[#292929]
               ${isScrolled ? "translate-y-0 opacity-100 pointer-events-auto scale-100" : "pointer-events-none" }`}
             tabIndex={isScrolled ? 0 : -1}
             aria-hidden={!isScrolled}
           >
-            Обсудить проект
-          </a>
+            {ctaText}
+          </button>
         </div>
 
 
@@ -78,17 +84,15 @@ export default function SiteHeader() {
         <button
           type="button"
           aria-label="Открыть меню"
-          className="flex items-center justify-center rounded-xl p-3 md:hidden"
+          className="btn-press group flex items-center justify-center rounded-xl p-3 hover:bg-[#4e4e4e] active:bg-[#292929] md:hidden"
           onClick={() => setIsMobileMenuOpen(true)}
         >
-          <Image
-            src="/home/header-menu.svg"
-            alt=""
-            aria-hidden
-            width={24}
-            height={24}
-            className="size-6"
-          />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden className="size-6">
+            <path
+              className="fill-[#a5a5a5] transition-colors duration-200 group-hover:fill-[#fdfdfd]"
+              d="M20 15C20.5523 15 21 15.4477 21 16C21 16.5523 20.5523 17 20 17H11C10.4477 17 10 16.5523 10 16C10 15.4477 10.4477 15 11 15H20ZM20 7C20.5523 7 21 7.44772 21 8C21 8.55228 20.5523 9 20 9H4C3.44772 9 3 8.55228 3 8C3 7.44772 3.44772 7 4 7H20Z"
+            />
+          </svg>
         </button>
 
         <div className="hidden items-center gap-6 md:flex md:gap-8">
@@ -97,7 +101,7 @@ export default function SiteHeader() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-base font-medium leading-6  text-[#a5a5a5] transition-colors hover:text-white"
+                className="text-base font-medium leading-6  text-[#a5a5a5] transition-colors hover:text-white active:text-[#d4d4d4]"
               >
                 {item.label}
               </a>
@@ -120,7 +124,7 @@ export default function SiteHeader() {
                 <button
                   type="button"
                   aria-label="Закрыть меню"
-                  className="flex items-center justify-center rounded-xl p-3"
+                  className="flex items-center justify-center rounded-xl p-3 transition-[background-color,transform] hover:bg-[#292929] active:bg-[#333333] active:scale-95"
                   onClick={closeMobileMenu}
                 >
                   <Image
@@ -138,7 +142,7 @@ export default function SiteHeader() {
                   <a
                     key={`mobile-${item.href}`}
                     href={item.href}
-                    className="text-[24px] font-medium leading-[32px]  text-[#a5a5a5] transition-colors hover:text-[#fdfdfd]"
+                    className="text-[24px] font-medium leading-[32px]  text-[#a5a5a5] transition-colors hover:text-[#fdfdfd] active:text-[#d4d4d4]"
                     onClick={closeMobileMenu}
                   >
                     {item.label}
@@ -149,18 +153,23 @@ export default function SiteHeader() {
 
             <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black/65 px-4 pb-12 pt-4">
               <div className="flex justify-end">
-                <Link
-                  href="#cooperation"
-                  className="pointer-events-auto rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6  text-[#fdfdfd]"
-                  onClick={closeMobileMenu}
+                <button
+                  type="button"
+                  className="btn-press pointer-events-auto rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6  text-[#fdfdfd] hover:bg-[#e0123f] active:bg-[#ab0d30]"
+                  onClick={() => {
+                    closeMobileMenu();
+                    setIsContactOpen(true);
+                  }}
                 >
-                  Обсудить проект
-                </Link>
+                  {ctaText}
+                </button>
               </div>
             </div>
           </div>
         </div>
       ) : null}
+
+      <ContactModal open={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </header>
   );
 }
