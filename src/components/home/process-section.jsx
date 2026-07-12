@@ -21,6 +21,7 @@ const DEFAULT_STEPS = [
 ];
 
 const SCROLL_PROBE_RATIO = 0.33;
+const PROGRESS_LERP = 0.96;
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
@@ -61,7 +62,7 @@ export default function ProcessSection({
           return;
         }
 
-        const next = current + delta * 0.025;
+        const next = current + delta * PROGRESS_LERP;
         visualProgressRef.current = next;
         setProgress(next);
         smoothFrameRef.current = window.requestAnimationFrame(step);

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageContainer from "@/components/ui/page-container";
+import TypewriterText from "@/components/ui/typewriter-text";
 import HeroImg from "@pub/mock/walmi-hero.png";
 import Screen1Img from "@pub/mock/walmi-screen1.png";
 import Screen2Img from "@pub/mock/walmi-screen2.png";
@@ -23,16 +24,17 @@ export default async function ProjectPage({ params }) {
       {/* Breadcrumb */}
       <section className="py-8">
         <PageContainer>
-          <div data-reveal className="flex items-center justify-center gap-3 rounded-[32px] bg-[#141414] px-10 py-8 text-center">
+          <div className="flex items-center justify-center gap-3 rounded-[32px] bg-[#141414] px-10 py-8 text-center">
             <Link
               href="/projects"
               className="text-[40px] font-medium leading-tight text-[#7a7a7a] transition-colors hover:text-[#a5a5a5] active:text-[#fdfdfd] md:text-[64px] md:leading-[76px]"
             >
               Проекты
             </Link>
-            <span className="text-[40px] font-medium leading-tight text-[#fdfdfd] md:text-[64px] md:leading-[76px]">
-              {project.title}
-            </span>
+            <TypewriterText
+              text={project.title}
+              className="text-[40px] font-medium leading-tight text-[#fdfdfd] md:text-[64px] md:leading-[76px]"
+            />
           </div>
         </PageContainer>
       </section>

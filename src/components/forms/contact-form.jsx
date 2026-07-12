@@ -135,7 +135,7 @@ export default function ContactForm({ showHelper = false, idPrefix = "contact", 
     setTouched((prev) => ({ ...prev, interests: true }));
     setFormData((prev) => {
       const hasInterest = prev.interests.includes(interest);
-      const nextInterests = hasInterest ? prev.interests : [interest];
+      const nextInterests = hasInterest ? [] : [interest];
 
       return { ...prev, interests: nextInterests };
     });
@@ -191,7 +191,7 @@ export default function ContactForm({ showHelper = false, idPrefix = "contact", 
             <legend className="px-1 text-base font-medium leading-6  text-[#fdfdfd]">
               Что Вас интересует?
             </legend>
-            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Что вас интересует">
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Что вас интересует">
               {topics.map((topic) => {
                 const isSelected = formData.interests.includes(topic);
                 const isDimmed = formData.interests.length > 0 && !isSelected;
@@ -201,8 +201,7 @@ export default function ContactForm({ showHelper = false, idPrefix = "contact", 
                     key={topic}
                     type="button"
                     onClick={() => toggleInterest(topic)}
-                    role="radio"
-                    aria-checked={isSelected}
+                    aria-pressed={isSelected}
                     className={`rounded-xl px-4 py-3 text-base font-medium leading-6 tracking-[-0.04em] whitespace-nowrap transition-all duration-300 ease-out active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff1447] ${getTopicButtonClasses(
                       isSelected,
                       isDimmed,

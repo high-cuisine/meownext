@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import PageContainer from "@/components/ui/page-container";
@@ -18,14 +18,20 @@ const DEFAULT_MOBILE_MENU = [
   { href: "#cooperation", label: "Сотрудничество" },
 ];
 
+const MENU_ANIMATION_MS = 420;
+const MENU_EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+
 export default function SiteHeader({
   ctaText = "Обсудить проект",
   desktopMenu = DEFAULT_DESKTOP_MENU,
   mobileMenu = DEFAULT_MOBILE_MENU,
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMenuMounted, setIsMenuMounted] = useState(false);
+  const [isMenuClosing, setIsMenuClosing] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const menuCloseTimer = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,19 +47,57 @@ export default function SiteHeader({
   }, []);
 
   useEffect(() => {
-    if (!isMobileMenuOpen) {
+    if (isMobileMenuOpen) {
+      if (menuCloseTimer.current) {
+        clearTimeout(menuCloseTimer.current);
+        menuCloseTimer.current = null;
+      }
+      setIsMenuClosing(false);
+      setIsMenuMounted(true);
+    } else if (isMenuMounted) {
+      setIsMenuClosing(true);
+      menuCloseTimer.current = setTimeout(() => {
+        setIsMenuMounted(false);
+        setIsMenuClosing(false);
+      }, MENU_ANIMATION_MS);
+    }
+  }, [isMobileMenuOpen, isMenuMounted]);
+
+  useEffect(() => () => {
+    if (menuCloseTimer.current) {
+      clearTimeout(menuCloseTimer.current);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isMenuMounted) {
       return;
     }
 
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
     return () => {
+      document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = previousOverflow;
     };
-  }, [isMobileMenuOpen]);
+  }, [isMenuMounted]);
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  const menuOverlayAnimation = isMenuClosing
+    ? `mobile-menu-overlay-out 0.32s ease-out both`
+    : `mobile-menu-overlay-in 0.36s ease-out both`;
+  const menuPanelAnimation = isMenuClosing
+    ? `mobile-menu-panel-out 0.38s ${MENU_EASE} both`
+    : `mobile-menu-panel-in 0.42s ${MENU_EASE} both`;
 
   return (
     <header
@@ -112,10 +156,20 @@ export default function SiteHeader({
         </div>
       </PageContainer>
 
-      {isMobileMenuOpen ? (
-        <div className="fixed inset-0 z-[70] bg-[rgba(0,0,0,0.1)] backdrop-blur-[12px] md:hidden">
+      {isMenuMounted ? (
+        <div className="fixed inset-0 z-[70] md:hidden">
+          <div
+            aria-hidden
+            className="mobile-menu-overlay-anim absolute inset-0 bg-[rgba(0,0,0,0.1)] backdrop-blur-[12px]"
+            style={{ animation: menuOverlayAnimation }}
+            onClick={closeMobileMenu}
+          />
+
           <div className="relative h-full w-full">
-            <div className="border-b border-[#333333] bg-[#1f1f1f]">
+            <div
+              className="mobile-menu-panel-anim overflow-hidden border-b border-[#333333] bg-[#1f1f1f]"
+              style={{ animation: menuPanelAnimation }}
+            >
               <PageContainer className="flex h-[88px] items-center justify-between gap-5 py-2">
                 <Link href="/" className="inline-flex items-center text-white" onClick={closeMobileMenu}>
                   <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
@@ -138,11 +192,16 @@ export default function SiteHeader({
                 </button>
               </PageContainer>
               <nav className="flex flex-col gap-5 px-6 pb-16 pt-8">
-                {mobileMenu.map((item) => (
+                {mobileMenu.map((item, index) => (
                   <a
                     key={`mobile-${item.href}`}
                     href={item.href}
-                    className="text-[24px] font-medium leading-[32px]  text-[#a5a5a5] transition-colors hover:text-[#fdfdfd] active:text-[#d4d4d4]"
+                    className="mobile-menu-item-anim text-[24px] font-medium leading-[32px] text-[#a5a5a5] transition-colors hover:text-[#fdfdfd] active:text-[#d4d4d4]"
+                    style={{
+                      animation: isMenuClosing
+                        ? "none"
+                        : `mobile-menu-item-in 0.38s ${MENU_EASE} ${120 + index * 70}ms both`,
+                    }}
                     onClick={closeMobileMenu}
                   >
                     {item.label}
@@ -155,7 +214,12 @@ export default function SiteHeader({
               <div className="flex justify-end">
                 <button
                   type="button"
-                  className="btn-press pointer-events-auto rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6  text-[#fdfdfd] hover:bg-[#e0123f] active:bg-[#ab0d30]"
+                  className="mobile-menu-cta-anim btn-press pointer-events-auto rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6 text-[#fdfdfd] hover:bg-[#e0123f] active:bg-[#ab0d30]"
+                  style={{
+                    animation: isMenuClosing
+                      ? "none"
+                      : `mobile-menu-cta-in 0.4s ${MENU_EASE} 320ms both`,
+                  }}
                   onClick={() => {
                     closeMobileMenu();
                     setIsContactOpen(true);

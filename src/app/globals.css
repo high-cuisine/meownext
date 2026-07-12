@@ -73,9 +73,67 @@ button {
   to { opacity: 0; transform: translateY(24px) scale(0.98); }
 }
 
+@keyframes mobile-menu-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes mobile-menu-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes mobile-menu-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-menu-panel-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes mobile-menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-menu-cta-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .modal-overlay-anim,
-  .modal-card-anim {
+  .modal-card-anim,
+  .mobile-menu-overlay-anim,
+  .mobile-menu-panel-anim,
+  .mobile-menu-item-anim,
+  .mobile-menu-cta-anim {
     animation: none !important;
   }
 }
@@ -95,27 +153,25 @@ html[data-reveal-mode] main [data-reveal][data-revealed] {
   }
 }
 
-:root {
-  --site-roundness: 16px;
+@keyframes typewriter-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
-html[data-roundness="small"] {
-  --site-roundness: 8px;
+.typewriter-cursor {
+  background-color: currentColor;
+  animation: typewriter-blink 0.75s step-end infinite;
 }
 
-html[data-roundness="medium"] {
-  --site-roundness: 16px;
-}
-
-html[data-roundness="large"] {
-  --site-roundness: 32px;
-}
-
-html[data-roundness] [data-site-roundness],
-html[data-roundness] button[class*="rounded-"]:not([class*="rounded-full"]),
-html[data-roundness] a[class*="rounded-"]:not([class*="rounded-full"]) {
-  border-radius: var(--site-roundness) !important;
-  transition: border-radius 0.5s ease-in-out;
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-cursor {
+    animation: none;
+  }
 }
 
 .btn-press {

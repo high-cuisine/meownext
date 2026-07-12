@@ -10,7 +10,7 @@ export default function HeroSection({
     <div className="relative">
       <PageContainer className="relative pt-8 sm:py-14 lg:py-10">
         <div className="relative grid gap-6 xl:grid-cols-2 xl:items-end xl:gap-10">
-          <div className="relative min-h-[280px] sm:min-h-[320px] xl:min-h-[312px]" aria-hidden />
+          <div className="relative hidden min-h-[280px] sm:block sm:min-h-[320px] xl:min-h-[312px]" aria-hidden />
 
           <div data-reveal className="relative z-10 flex flex-col items-start gap-8 pb-12 sm:pb-0">
             <h1 className="text-[40px] font-medium leading-[52px]  text-white sm:text-5xl  lg:text-[64px] lg:leading-[76px]">
