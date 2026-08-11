@@ -22,12 +22,12 @@ export default function HeroSection({
               ))}
             </h1>
 
-            <button
-              type="button"
+            <a
+              href="#cooperation"
               className="btn-press hidden rounded-xl bg-[#c20f36] px-5 py-3 text-sm font-medium text-white hover:bg-[#e0123f] active:bg-[#ab0d30] sm:inline-flex sm:text-base"
             >
               {ctaText}
-            </button>
+            </a>
           </div>
         </div>
       </PageContainer>

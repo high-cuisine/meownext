@@ -29,7 +29,7 @@ export default function WhySection({ heading = "Почему мы?", cards = DEF
   return (
     <section className="bg-[#0a0a0a] py-7 sm:py-16">
       <PageContainer>
-        <h2 data-reveal className="text-[28px] font-semibold leading-[40px] sticky top-[120px] text-[#fdfdfd] sm:text-[40px] sm:leading-[48px]">
+        <h2 data-reveal className="text-[28px] font-semibold leading-[40px] text-[#fdfdfd] sm:text-[40px] sm:leading-[48px]">
           {heading}
         </h2>
 
@@ -40,7 +40,7 @@ export default function WhySection({ heading = "Почему мы?", cards = DEF
               <article
                 key={card.title}
                 data-reveal
-                className="flex h-full flex-col gap-5 rounded-[32px] sticky sm:relative top-[180px] md:top-auto bg-[#1f1f1f] p-5"
+                className="flex h-full flex-col gap-5 rounded-[32px] bg-[#1f1f1f] p-5"
               >
                 <div className="relative size-32 overflow-hidden rounded-[20px] border border-[#333333]">
                   <Image

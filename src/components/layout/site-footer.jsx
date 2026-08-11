@@ -21,16 +21,43 @@ const SOCIAL_ICONS = {
   ),
 };
 
-export default function SiteFooter({ email, copyright, socials, links }) {
+function LegalInfo({ entityName, inn, ogrnip, className = "" }) {
+  return (
+    <div className={`flex flex-col gap-3 ${className}`}>
+      <p className="text-base leading-6 text-[#a5a5a5]">{entityName}</p>
+      <div className="flex flex-wrap gap-x-5 gap-y-2">
+        <div className="flex items-center gap-2">
+          <span className="text-base leading-6 text-[#7a7a7a]">ИНН</span>
+          <span className="text-base font-medium leading-6 text-[#a5a5a5]">{inn}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-base leading-6 text-[#7a7a7a]">ОГРНИП</span>
+          <span className="text-base font-medium leading-6 text-[#a5a5a5]">{ogrnip}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function SiteFooter({
+  email,
+  entityName,
+  inn,
+  ogrnip,
+  socials,
+  links,
+}) {
   const resolvedEmail = email ?? "meowdes.studio@gmail.com";
-  const resolvedCopyright = copyright ?? "© Meowdes 2026";
+  const resolvedEntityName = entityName ?? "ИП Рязанов Антон Павлович";
+  const resolvedInn = inn ?? "772209176324";
+  const resolvedOgrnip = ogrnip ?? "325774600757160";
   const resolvedSocials = socials ?? [
     { label: "Telegram", href: "#" },
     { label: "Behance", href: "#" },
   ];
   const resolvedLinks = links ?? [
     { label: "Презентация", href: "#" },
-    { label: "Политика конфиденциальности", href: "#" },
+    { label: "Политика конфиденциальности", href: "/privacy-policy" },
   ];
 
   return (
@@ -41,7 +68,12 @@ export default function SiteFooter({ email, copyright, socials, links }) {
       <PageContainer className="flex flex-col gap-12 md:flex-row md:items-stretch md:gap-5">
         <div className="flex md:min-h-[176px] min-w-0 flex-1 flex-col justify-between gap-5">
           <CopyEmailButton email={resolvedEmail} />
-          <p className="hidden text-sm leading-5 text-[#7a7a7a] md:block">{resolvedCopyright}</p>
+          <LegalInfo
+            entityName={resolvedEntityName}
+            inn={resolvedInn}
+            ogrnip={resolvedOgrnip}
+            className="hidden md:flex"
+          />
         </div>
 
         <div className="flex w-full max-w-[424px] min-w-0 flex-col gap-12">
@@ -78,7 +110,12 @@ export default function SiteFooter({ email, copyright, socials, links }) {
           </div>
         </div>
 
-        <p className="text-sm leading-5 text-[#7a7a7a] md:hidden">{resolvedCopyright}</p>
+        <LegalInfo
+          entityName={resolvedEntityName}
+          inn={resolvedInn}
+          ogrnip={resolvedOgrnip}
+          className="md:hidden"
+        />
       </PageContainer>
     </footer>
   );

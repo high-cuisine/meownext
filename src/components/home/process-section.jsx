@@ -35,15 +35,21 @@ export default function ProcessSection({
   const timelineWrapRef = useRef(null);
   const firstIconRef = useRef(null);
   const lastIconRef = useRef(null);
+  const progressFillRef = useRef(null);
   const frameRef = useRef(0);
   const smoothFrameRef = useRef(0);
   const targetProgressRef = useRef(0);
   const visualProgressRef = useRef(0);
   const [timeline, setTimeline] = useState({ top: 0, height: 0 });
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let resizeObserver = null;
+
+    const applyProgress = (value) => {
+      if (progressFillRef.current) {
+        progressFillRef.current.style.height = `${value * 100}%`;
+      }
+    };
 
     const animateProgress = () => {
       if (smoothFrameRef.current) {
@@ -57,14 +63,14 @@ export default function ProcessSection({
 
         if (Math.abs(delta) < 0.001) {
           visualProgressRef.current = target;
-          setProgress(target);
+          applyProgress(target);
           smoothFrameRef.current = 0;
           return;
         }
 
         const next = current + delta * PROGRESS_LERP;
         visualProgressRef.current = next;
-        setProgress(next);
+        applyProgress(next);
         smoothFrameRef.current = window.requestAnimationFrame(step);
       };
 
@@ -154,7 +160,7 @@ export default function ProcessSection({
     <section id="services" className="bg-black py-7 sm:py-16">
       <PageContainer>
         <div className="relative grid gap-8 lg:grid-cols-2 lg:gap-5">
-          <div data-reveal className="h-fit space-y-6 lg:sticky lg:top-36">
+          <div data-reveal className="h-fit space-y-6 lg:sticky lg:top-36 lg:self-start">
             <h2 className="text-[28px] font-semibold leading-[40px]  text-[#fdfdfd] sm:text-[40px] sm:leading-[48px]">
               {heading}
             </h2>
@@ -174,8 +180,9 @@ export default function ProcessSection({
               }}
             >
               <div
+                ref={progressFillRef}
                 className="w-full rounded-full bg-gradient-to-b from-[#66081c] to-[#c20f36]"
-                style={{ height: `${progress * 100}%` }}
+                style={{ height: "0%" }}
               />
             </div>
 

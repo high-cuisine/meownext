@@ -7,21 +7,26 @@ function ServiceRow({ number, badge, title, description, tags, deadline, price, 
     <li>
       <article data-reveal className="flex flex-col gap-4 py-8 md:flex-row md:items-start md:gap-5">
         {/* Left: number + badge + title */}
-        <div className="flex min-w-0 flex-1 items-start gap-4 pl-3">
-          <span className="w-20 shrink-0 pt-8 text-[40px] font-medium leading-none text-[#7a7a7a]">
+        <div className="flex min-w-0 flex-1 items-start gap-4 md:gap-5">
+          <span className="hidden shrink-0 pt-8 text-[40px] font-medium leading-none text-[#7a7a7a] md:block md:w-20">
             {number}
           </span>
-          <div className="flex flex-col gap-2">
+          <div className="flex min-w-0 flex-1 flex-col gap-2">
             <span className="text-[12px] font-normal tracking-wide text-[#e0123f]">{badge}</span>
-            <h2 className="text-[32px] font-semibold leading-tight text-[#fdfdfd] md:text-[40px] lg:text-[48px]">
-              {title}
-            </h2>
+            <div className="flex items-end justify-between gap-4 md:block">
+              <h2 className="text-[32px] font-semibold leading-tight text-[#fdfdfd] md:text-[40px] lg:text-[48px]">
+                {title}
+              </h2>
+              <span className="shrink-0 text-[32px] font-medium leading-none text-[#7a7a7a] md:hidden">
+                {number}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Right: description + tags + deadline + price */}
-        <div className="flex min-w-0 flex-1 items-center justify-between gap-4 pr-3">
-          <div className="flex flex-col gap-4">
+        <div className="flex min-w-0 flex-1 items-start justify-between gap-4">
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
             <p className="text-base leading-6 text-[#a5a5a5]">{description}</p>
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
@@ -33,17 +38,20 @@ function ServiceRow({ number, badge, title, description, tags, deadline, price, 
                 </span>
               ))}
             </div>
-            <div className="flex flex-col gap-0.5">
-              <span className="text-sm font-medium text-[#7a7a7a]">Срок</span>
-              <span className="text-base text-[#fdfdfd]">{deadline}</span>
+            <div className="flex items-end justify-between gap-4">
+              <div className="flex flex-col gap-0.5">
+                <span className="text-sm font-medium text-[#7a7a7a]">Срок</span>
+                <span className="text-base text-[#fdfdfd]">{deadline}</span>
+              </div>
+              <span className="text-2xl font-semibold text-[#fdfdfd] md:hidden">{price}</span>
             </div>
           </div>
-          <div className="shrink-0 text-right">
+          <div className="hidden shrink-0 text-right md:block">
             <span className="text-2xl font-semibold text-[#fdfdfd] md:text-[32px]">{price}</span>
           </div>
         </div>
       </article>
-      {!isLast && <div className="mx-3 h-px bg-[#333333]" />}
+      {!isLast && <div className="h-px bg-[#333333]" />}
     </li>
   );
 }

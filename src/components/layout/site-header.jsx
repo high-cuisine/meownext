@@ -34,8 +34,17 @@ export default function SiteHeader({
   const menuCloseTimer = useRef(null);
 
   useEffect(() => {
+    let frameId = 0;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      if (frameId) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(() => {
+        frameId = 0;
+        setIsScrolled(window.scrollY > 8);
+      });
     };
 
     handleScroll();
@@ -43,6 +52,9 @@ export default function SiteHeader({
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+      }
     };
   }, []);
 
@@ -101,9 +113,11 @@ export default function SiteHeader({
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b transition-colors duration-500 ${isScrolled ? "border-[#333333]" : "border-transparent"}`}
+      className={`sticky top-0 z-40 border-b transition-colors duration-500 ${
+        isScrolled ? "border-[#333333] bg-black" : "border-transparent bg-transparent"
+      }`}
     >
-      <PageContainer className={`flex xl:grid grid-cols-2 h-[88px] items-center justify-between gap-5 py-2 transition-all duration-1000 backdrop-blur-[0px] bg-black/00 ${isScrolled ? "backdrop-blur-[12px] bg-black" : " "}`}>
+      <PageContainer className="flex xl:grid grid-cols-2 h-[88px] items-center justify-between gap-5 py-2">
         <div className="flex items-center gap-[24px]">
           <Link href="/" className="inline-flex items-center text-white transition-opacity hover:opacity-80 active:opacity-60">
             <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
@@ -165,69 +179,68 @@ export default function SiteHeader({
             onClick={closeMobileMenu}
           />
 
-          <div className="relative h-full w-full">
-            <div
-              className="mobile-menu-panel-anim overflow-hidden border-b border-[#333333] bg-[#1f1f1f]"
-              style={{ animation: menuPanelAnimation }}
-            >
-              <PageContainer className="flex h-[88px] items-center justify-between gap-5 py-2">
-                <Link href="/" className="inline-flex items-center text-white" onClick={closeMobileMenu}>
-                  <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
-                </Link>
+          <div
+            className="mobile-menu-panel-anim relative z-10 flex min-h-dvh flex-col bg-[#1f1f1f]"
+            style={{ animation: menuPanelAnimation }}
+          >
+            <PageContainer className="flex h-[88px] shrink-0 items-center justify-between gap-5 border-b border-[#333333] py-2">
+              <Link href="/" className="inline-flex items-center text-white" onClick={closeMobileMenu}>
+                <Image src={Logo} width={191} height={72} alt="Meowdes" priority />
+              </Link>
 
-                <button
-                  type="button"
-                  aria-label="Закрыть меню"
-                  className="flex items-center justify-center rounded-xl p-3 transition-[background-color,transform] hover:bg-[#292929] active:bg-[#333333] active:scale-95"
-                  onClick={closeMobileMenu}
-                >
-                  <Image
-                    src="/home/header-close.svg"
-                    alt=""
-                    aria-hidden
-                    width={24}
-                    height={24}
-                    className="size-6"
-                  />
-                </button>
-              </PageContainer>
-              <nav className="flex flex-col gap-5 px-6 pb-16 pt-8">
-                {mobileMenu.map((item, index) => (
-                  <a
-                    key={`mobile-${item.href}`}
-                    href={item.href}
-                    className="mobile-menu-item-anim text-[24px] font-medium leading-[32px] text-[#a5a5a5] transition-colors hover:text-[#fdfdfd] active:text-[#d4d4d4]"
-                    style={{
-                      animation: isMenuClosing
-                        ? "none"
-                        : `mobile-menu-item-in 0.38s ${MENU_EASE} ${120 + index * 70}ms both`,
-                    }}
-                    onClick={closeMobileMenu}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
+              <button
+                type="button"
+                aria-label="Закрыть меню"
+                className="flex items-center justify-center rounded-xl p-3 transition-[background-color,transform] hover:bg-[#292929] active:bg-[#333333] active:scale-95"
+                onClick={closeMobileMenu}
+              >
+                <Image
+                  src="/home/header-close.svg"
+                  alt=""
+                  aria-hidden
+                  width={24}
+                  height={24}
+                  className="size-6"
+                />
+              </button>
+            </PageContainer>
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-b from-transparent to-black/65 px-4 pb-12 pt-4">
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="mobile-menu-cta-anim btn-press pointer-events-auto rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6 text-[#fdfdfd] hover:bg-[#e0123f] active:bg-[#ab0d30]"
+            <nav className="flex flex-1 flex-col gap-5 px-6 pt-8">
+              {mobileMenu.map((item, index) => (
+                <a
+                  key={`mobile-${item.href}`}
+                  href={item.href}
+                  className="mobile-menu-item-anim text-[24px] font-medium leading-[32px] text-[#a5a5a5] transition-colors hover:text-[#fdfdfd] active:text-[#d4d4d4]"
                   style={{
                     animation: isMenuClosing
                       ? "none"
-                      : `mobile-menu-cta-in 0.4s ${MENU_EASE} 320ms both`,
+                      : `mobile-menu-item-in 0.36s ${MENU_EASE} ${80 + index * 55}ms both`,
                   }}
-                  onClick={() => {
-                    closeMobileMenu();
-                    setIsContactOpen(true);
-                  }}
+                  onClick={closeMobileMenu}
                 >
-                  {ctaText}
-                </button>
-              </div>
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+
+            <div
+              className="mobile-menu-item-anim mt-auto px-4 pb-[max(3rem,env(safe-area-inset-bottom))] pt-6"
+              style={{
+                animation: isMenuClosing
+                  ? "none"
+                  : `mobile-menu-item-in 0.36s ${MENU_EASE} ${80 + mobileMenu.length * 55}ms both`,
+              }}
+            >
+              <button
+                type="button"
+                className="btn-press w-full rounded-xl bg-[#c20f36] px-5 py-3 text-base font-medium leading-6 text-[#fdfdfd] hover:bg-[#e0123f] active:bg-[#ab0d30]"
+                onClick={() => {
+                  closeMobileMenu();
+                  setIsContactOpen(true);
+                }}
+              >
+                {ctaText}
+              </button>
             </div>
           </div>
         </div>

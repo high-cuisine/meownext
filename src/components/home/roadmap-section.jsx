@@ -66,7 +66,7 @@ export default function RoadmapSection({
         </div>
 
         <div className="mt-5 sm:hidden">
-          <div className="-mx-3 snap-x snap-mandatory overflow-x-auto px-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div data-native-scroll className="-mx-3 snap-x snap-mandatory overflow-x-auto px-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <div className="w-max">
               <div className="flex items-end">
                 {timelineDays.map((day, index) => {

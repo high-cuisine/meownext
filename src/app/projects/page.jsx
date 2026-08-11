@@ -55,20 +55,10 @@ function ProjectCard({ title, tags, imageIndex, imageSet, comingSoon = false, wi
 
 export default function ProjectsPage() {
   const { projectsList } = getContent();
-  const { heading, row1, wideProject, row2 } = projectsList;
+  const { row1, wideProject, row2 } = projectsList;
 
   return (
     <>
-      <section className="py-8">
-        <PageContainer>
-          <div data-reveal className="rounded-[32px] bg-[#141414] px-8 py-8 text-center md:px-10 md:py-10">
-            <h1 className="text-[40px] font-medium leading-tight text-[#fdfdfd] md:text-[64px] md:leading-[76px]">
-              {heading}
-            </h1>
-          </div>
-        </PageContainer>
-      </section>
-
       <section className="py-10 md:py-16">
         <PageContainer className="flex flex-col gap-8 md:gap-12">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">

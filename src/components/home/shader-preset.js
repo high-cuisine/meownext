@@ -49,10 +49,29 @@ export const HOME_SHADER_PRESET = {
 };
 
 export const CONTACT_SHADER_PRESET = {
-  components: HOME_SHADER_PRESET.components
-    .filter((component) => component.type !== "FlutedGlass")
-    .map((component) => ({
-      ...component,
-      id: `contact-${component.id}`,
-    })),
+  components: [
+    ...HOME_SHADER_PRESET.components
+      .filter((component) => component.type !== "FlutedGlass")
+      .map((component) => ({
+        ...component,
+        id: `contact-${component.id}`,
+      })),
+    {
+      type: "Chevron",
+      id: "contact-chevron-pattern",
+      props: {
+        blendMode: "overlay",
+        opacity: 0.5,
+        colorA: "#000000",
+        colorB: "#292929",
+        count: 10,
+        angle: 45,
+        balance: 0.5,
+        softness: 0.2,
+        speed: 0,
+        offset: 0,
+        colorSpace: "linear",
+      },
+    },
+  ],
 };

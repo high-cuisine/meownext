@@ -8,7 +8,7 @@ export default function HomeBanner({ hero, cases }) {
     <section className="relative overflow-x-clip overflow-y-visible">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-screen -translate-x-1/2 overflow-hidden"
+        className="pointer-events-none absolute -top-[88px] bottom-0 left-1/2 z-0 w-screen -translate-x-1/2 overflow-hidden"
       >
         <ShaderBg
           preset={HOME_SHADER_PRESET}

@@ -340,7 +340,7 @@ export default function ContactForm({ showHelper = false, idPrefix = "contact", 
           </span>
           <span>
             Отправляя форму, я соглашаюсь на обработку персональных данных и принимаю{" "}
-            <a href="#" className="text-[#fdfdfd] underline decoration-transparent underline-offset-2 transition-colors hover:decoration-current active:text-[#d4d4d4]">
+            <a href="/privacy-policy" className="text-[#fdfdfd] underline decoration-transparent underline-offset-2 transition-colors hover:decoration-current active:text-[#d4d4d4]">
               Политику конфиденциальности
             </a>
             {shouldShowError("policy") && errors.policy ? (
